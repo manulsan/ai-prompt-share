@@ -1,0 +1,50 @@
+/* Markdown content styling */
+.markdown-content {
+  @apply text-gray-800;
+}
+
+.markdown-content h1,
+.markdown-content h2,
+.markdown-content h3,
+.markdown-content h4,
+.markdown-content h5,
+.markdown-content h6 {
+  @apply font-bold text-gray-900;
+}
+
+.markdown-content pre {
+  @apply bg-gray-900 text-white rounded-lg overflow-x-auto;
+}
+
+.markdown-content code {
+  @apply font-mono text-sm;
+}
+
+.markdown-content a {
+  @apply text-blue-600 hover:text-blue-800 underline;
+}
+
+.markdown-content img {
+  @apply rounded-lg shadow-md;
+}
+
+.markdown-content blockquote {
+  @apply border-l-4 border-blue-500 pl-4 italic text-gray-700;
+}
+
+.markdown-content table {
+  @apply border-collapse border border-gray-300;
+}
+
+.markdown-content th,
+.markdown-content td {
+  @apply border border-gray-300 px-4 py-2;
+}
+
+.markdown-content th {
+  @apply bg-gray-100 font-semibold;
+}
+
+.markdown-content hr {
+  @apply my-6 border-gray-300;
+}
