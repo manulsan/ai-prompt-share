@@ -37,32 +37,40 @@ const authOptions: NextAuthOptions = {
       }
       return session;
     },
-    async signIn({ user, account, profile, email, credentials }) {
+    async signIn({ user, account, profile }) {
+      if (!user?.email) {
+        console.error("No email provided");
+        return false;
+      }
+
       try {
-        console.log("Sign in:", user);
+        console.log("Attempting sign in for:", user.email);
+        
         await connectDB();
+        console.log("Database connected successfully");
 
         // Check if user already exists
         const existingUser = await User.findOne({ email: user.email });
 
         // If not, create new user
         if (!existingUser) {
-          await User.create({
+          const newUser = await User.create({
             email: user.email,
-            name: user.name,
-            image: user.image,
+            name: user.name || "Unknown",
+            image: user.image || "",
           });
-          console.log("New user created:", user.email);
+          console.log("New user created:", newUser.email);
         } else {
-          console.log("User already exists:", user.email);
+          console.log("User already exists:", existingUser.email);
         }
 
-        console.log("2 Sign in:", user);
-
         return true;
-      } catch (error) {
+      } catch (error: any) {
         console.error("Error during sign in:", error);
-        return false;
+        console.error("Error message:", error.message);
+        console.error("Error stack:", error.stack);
+        // Return true anyway to allow sign in even if DB fails
+        return true;
       }
     },
   },
