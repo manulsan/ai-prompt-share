@@ -2,8 +2,10 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Image from "next/image";
-import { ArrowLeft, Calendar, User } from "lucide-react";
+import { ArrowLeft, Calendar, User, Copy, Home } from "lucide-react";
 import PostStatusBadge from "@/app/components/PostStatusBadge";
+import HashTags from "@/app/components/HashTags";
+import ButtonHome from "@/app/components/ButtonHome";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
@@ -53,6 +55,18 @@ export default function PostDetailPage() {
     }
   };
 
+  const handleCopyContent = async () => {
+    if (post?.content) {
+      try {
+        await navigator.clipboard.writeText(post.content);
+        alert("Content copied");
+      } catch (error) {
+        console.error("Failed to copy content:", error);
+        alert("Failed to copy content");
+      }
+    }
+  };
+
   if (isLoading) {
     return (
       <div className="max-w-4xl mx-auto px-4 py-8">
@@ -78,25 +92,14 @@ export default function PostDetailPage() {
   }
 
   return (
-    <article className="max-w-4xl mx-auto px-4 py-8">
-      {/* Back Button */}
-      {/* <button
-        onClick={() => router.push("/")}
-        className="flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-6"
-      >
-        <ArrowLeft className="w-5 h-5" />
-        <span>Back to Home</span>
-      </button> */}
-
+    <article className="max-w-4xl mx-auto px-4 pt-4 pb-6">
       {/* Post Header */}
-      <header className="mb-8">
+      <header className="mb-6">
         {/* Title */}
-        <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-          {post.title}
-        </h1>
+        <h1 className="post_title">{post.title}</h1>
 
         {/* Meta Information */}
-        <div className="flex flex-wrap items-center justify-between gap-4 text-gray-600 mb-6">
+        <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
           <div className="flex flex-wrap items-center gap-4">
             {/* Author */}
             <div className="flex items-center gap-2">
@@ -109,7 +112,7 @@ export default function PostDetailPage() {
                   className="rounded-full"
                 />
               ) : (
-                <div className="w-10 h-10 rounded-full bg-gray-800 text-white flex items-center justify-center text-sm font-semibold">
+                <div className="w-10 h-10 rounded-full  flex items-center justify-center text-sm font-semibold">
                   {post.author.name.charAt(0).toUpperCase()}
                 </div>
               )}
@@ -127,18 +130,23 @@ export default function PostDetailPage() {
                 })}
               </span>
             </div>
+            <PostStatusBadge published={post.published} />
           </div>
 
           {/* Status Badge */}
-          <div>
-            <PostStatusBadge published={post.published} />
+
+          <div className="flex items-center">
+            <button onClick={handleCopyContent} className="btn_v1">
+              <Copy className="w-4 h-4" />
+              Copy
+            </button>
           </div>
         </div>
       </header>
 
       {/* Post Content */}
       <div className="prose prose-lg max-w-none">
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 markdown-content">
+        <div className=" rounded-lg shadow-sm border border-gray-400 p-6 markdown-content">
           <ReactMarkdown
             remarkPlugins={[remarkGfm]}
             rehypePlugins={[rehypeRaw]}
@@ -214,32 +222,16 @@ export default function PostDetailPage() {
           </ReactMarkdown>
         </div>
         {/* Tags */}
-        {post.tags.length > 0 && (
-          <div className="pt-4 flex flex-wrap gap-2 mb-4">
-            {post.tags.map((tag, index) => (
-              <span
-                key={index}
-                className="px-3 py-1 bg-blue-50 text-blue-600 text-sm rounded-full"
-              >
-                #{tag}
-              </span>
-            ))}
-          </div>
-        )}
+        <HashTags tags={post.tags} />
       </div>
 
       {/* Footer */}
-      <footer className="mt-5 pt-4 border-t border-gray-200">
+      <footer className="mt-5 pt-4 border-t border-gray-400">
         <div className="flex items-center justify-between">
-          <div className="text-sm text-gray-500">
+          <div className="text_label_comment2">
             Last updated: {new Date(post.updatedAt).toLocaleDateString()}
           </div>
-          <button
-            onClick={() => router.push("/")}
-            className="px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800 text-sm font-semibold"
-          >
-            Back to Home
-          </button>
+          <ButtonHome />
         </div>
       </footer>
     </article>

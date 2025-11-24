@@ -5,6 +5,7 @@ import Link from "next/link";
 import PostStatusBadge from "@/app/components/PostStatusBadge";
 import PagePagination from "@/app/components/PagePagination";
 import LikeBadge from "@/app/components/LikeBadge";
+import HashTags from "./components/HashTags";
 //import UserSidebar from "@/app/components/UserSidebar";
 
 interface Post {
@@ -157,19 +158,7 @@ export default function Home() {
                     </p>
 
                     {/* Tags */}
-                    {post.tags.length > 0 && (
-                      <div className="flex flex-wrap mb-3 items-center gap-1">
-                        <Tag className="w-3 h-3 text-[#a4a9af]" />
-                        {post.tags.slice(0, 3).map((tag, index) => (
-                          <span
-                            key={index}
-                            className="px-1 py-0.5text-[#a4a9af] text-xs"
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                    )}
+                    <HashTags tags={post.tags} />
 
                     {/* Author & Date & Status */}
                     <div className="flex items-center justify-between pt-3 border-t-[0.3px] border-[#606060]">

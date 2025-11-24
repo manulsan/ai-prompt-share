@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { Pencil, Trash2 } from "lucide-react";
+import { Pencil, Trash2, PenSquare } from "lucide-react";
 import { useSession } from "next-auth/react";
 import PostStatusBadge from "@/app/components/PostStatusBadge";
 import PagePagination from "@/app/components/PagePagination";
@@ -124,9 +124,10 @@ export default function PostsPage() {
         <h1 className="text-3xl font-bold">Posts</h1>
         <Link
           href="/posts/new"
-          className="px-4 py-1 bg-gray-600 text-white text-sm font-semibold rounded-lg hover:bg-gray-800"
+          className="px-4 py-1   text-sm font-semibold rounded-lg hover:bg-gray-800 flex items-center gap-2"
         >
-          Create Post
+          <PenSquare className="w-4 h-4" />
+          New Post
         </Link>
       </div>
 

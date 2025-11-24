@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
+import { Check, X, Eye, Edit3 } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
@@ -109,16 +110,13 @@ export default function NewPostPage() {
   };
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold text-gray-900 mb-8">Create New Post</h1>
+    <div className="max-w-3xl mx-auto px-4 py-4">
+      <h1 className="post_title">Create New Post</h1>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Title */}
         <div>
-          <label
-            htmlFor="title"
-            className="block text-sm font-medium text-gray-700 mb-2"
-          >
+          <label htmlFor="title" className="block text_label mb-2">
             Title *
           </label>
           <input
@@ -128,16 +126,14 @@ export default function NewPostPage() {
             required
             value={formData.title}
             onChange={handleChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent"
+            // className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent"
+            className="input_box2"
             placeholder="Enter post title"
           />
         </div>
         {/* Slug */}
         <div>
-          <label
-            htmlFor="slug"
-            className="block text-sm font-medium text-gray-700 mb-2"
-          >
+          <label htmlFor="slug" className="block text_label mb-2">
             Slug *
           </label>
           <input
@@ -147,20 +143,17 @@ export default function NewPostPage() {
             required
             value={formData.slug}
             onChange={handleChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent"
+            className="input_box2"
             placeholder="post-url-slug"
           />
-          <p className="text-xs text-gray-500 mt-1">
+          <p className="text_label_comment mt-1">
             URL-friendly version (e.g., my-first-post)
           </p>
         </div>
         {/* Content */}
         <div>
           <div className="flex items-center justify-between mb-2">
-            <label
-              htmlFor="content"
-              className="block text-sm font-medium text-gray-700"
-            >
+            <label htmlFor="content" className="block text_label">
               Content *{" "}
               <span className="text-gray-500 font-normal">
                 (Markdown supported)
@@ -169,14 +162,24 @@ export default function NewPostPage() {
             <button
               type="button"
               onClick={() => setShowPreview(!showPreview)}
-              className="text-sm text-blue-600 hover:text-blue-800 font-medium"
+              className="btn_v1"
             >
-              {showPreview ? "Edit" : "Preview"}
+              {showPreview ? (
+                <>
+                  <Edit3 className="w-4 h-4" />
+                  Edit
+                </>
+              ) : (
+                <>
+                  <Eye className="w-4 h-4" />
+                  Preview
+                </>
+              )}
             </button>
           </div>
 
           {showPreview ? (
-            <div className="w-full min-h-[300px] px-4 py-2 border border-gray-300 rounded-lg bg-gray-50 prose prose-sm max-w-none">
+            <div className="w-full min-h-[300px] px-4 input_box2">
               <ReactMarkdown
                 remarkPlugins={[remarkGfm]}
                 components={{
@@ -253,51 +256,39 @@ Code blocks
 ```"
             />
           )}
-          <p className="text-xs text-gray-500 mt-1">
+          <p className="text_label_comment mt-1">
             Supports Markdown: **bold**, *italic*, `code`, lists, links, images,
             etc.
           </p>
         </div>
         {/* Tags */}
         <div>
-          <label
-            htmlFor="tags"
-            className="block text-sm font-medium text-gray-700 mb-2"
-          >
+          <label htmlFor="tags" className="block text_label mb-2">
             Tags
           </label>
 
           {/* Quick Tag Checkboxes */}
           <div className="flex flex-wrap gap-4 mb-3">
-            <label className="flex items-center gap-2 cursor-pointer">
-              <input
-                type="checkbox"
-                checked={isTagChecked("nextjs")}
-                onChange={(e) => handleTagCheckbox("nextjs", e.target.checked)}
-                className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
-              />
-              <span className="text-sm text-gray-700">Next.js</span>
-            </label>
-            <label className="flex items-center gap-2 cursor-pointer">
-              <input
-                type="checkbox"
-                checked={isTagChecked("nodejs")}
-                onChange={(e) => handleTagCheckbox("nodejs", e.target.checked)}
-                className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
-              />
-              <span className="text-sm text-gray-700">Node.js</span>
-            </label>
-            <label className="flex items-center gap-2 cursor-pointer">
-              <input
-                type="checkbox"
-                checked={isTagChecked("typescript")}
-                onChange={(e) =>
-                  handleTagCheckbox("typescript", e.target.checked)
-                }
-                className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
-              />
-              <span className="text-sm text-gray-700">TypeScript</span>
-            </label>
+            {["nextjs", "nodejs", "typescript"].map((tag) => (
+              <label
+                key={tag}
+                className="flex items-center gap-2 cursor-pointer"
+              >
+                <input
+                  type="checkbox"
+                  checked={isTagChecked(tag)}
+                  onChange={(e) => handleTagCheckbox(tag, e.target.checked)}
+                  className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                />
+                <span className="text-sm">
+                  {tag === "nextjs"
+                    ? "Next.js"
+                    : tag === "nodejs"
+                    ? "Node.js"
+                    : "TypeScript"}
+                </span>
+              </label>
+            ))}
           </div>
 
           <input
@@ -306,12 +297,10 @@ Code blocks
             name="tags"
             value={formData.tags}
             onChange={handleChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent"
+            className="w-full px-4 py-1 input_box2"
             placeholder="javascript, nextjs, tutorial (comma-separated)"
           />
-          <p className="text-xs text-gray-500 mt-1">
-            Separate tags with commas
-          </p>
+          <p className="text_label_comment mt-1">Separate tags with commas</p>
         </div>{" "}
         {/* Published */}
         <div className="flex items-center">
@@ -323,10 +312,7 @@ Code blocks
             onChange={handleChange}
             className="w-4 h-4 text-black border-gray-300 rounded focus:ring-black"
           />
-          <label
-            htmlFor="published"
-            className="ml-2 text-sm font-medium text-gray-700"
-          >
+          <label htmlFor="published" className="ml-2 text-sm font-medium">
             Publish immediately
           </label>
         </div>
@@ -335,15 +321,17 @@ Code blocks
           <button
             type="submit"
             disabled={isSubmitting}
-            className="px-6 py-2 bg-black text-white font-semibold rounded-lg hover:bg-gray-800 disabled:bg-gray-400 disabled:cursor-not-allowed"
+            className="px-6 py-2 btn_v1 disabled:cursor-not-allowed"
           >
+            <Check className="w-4 h-4" />
             {isSubmitting ? "Creating..." : "Create Post"}
           </button>
           <button
             type="button"
             onClick={() => router.push("/posts")}
-            className="px-6 py-2 border border-gray-300 text-gray-700 font-semibold rounded-lg hover:bg-gray-50"
+            className="px-6 py-2 btn_v1"
           >
+            <X className="w-4 h-4" />
             Cancel
           </button>
         </div>
