@@ -82,8 +82,7 @@ export default function Home() {
   };
 
   return (
-    // <div className="flex gap-6 w-full max-w-7xl mx-auto px-4 py-8 bg-[#f6f8fa] min-h-screen">
-    <div className="flex gap-6 w-full max-w-7xl mx-auto px-4 py-8 min-h-screen">
+    <div className="flex gap-6 w-full max-w-7xl mx-auto px-4 py-6 min-h-screen">
       <section className="flex-1 min-w-0">
         <div className="text-center mb-10">
           <h1 className="text-4xl font-semibold mb-3 gradient-heading">
@@ -96,7 +95,7 @@ export default function Home() {
         </div>
 
         {/* Search Bar */}
-        <form onSubmit={handleSearch} className="mb-8">
+        <form onSubmit={handleSearch} className="mb-6">
           <div className="relative max-w-2xl mx-auto">
             <input
               type="text"
@@ -143,7 +142,7 @@ export default function Home() {
                       <div className="flex items-center justify-between mb-2 gap-2">
                         <div className="flex items-center gap-2 flex-1 min-w-0">
                           <FileText className="w-4 h-4  shrink-0" />
-                          <h3 className="text-base font-semibold text-[#0969da] line-clamp-1 hover:underline cursor-pointer">
+                          <h3 className="text-base font-semibold text-[#5da2f1] line-clamp-1 hover:underline cursor-pointer">
                             {post.title}
                           </h3>
                         </div>

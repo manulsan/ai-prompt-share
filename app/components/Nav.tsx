@@ -11,7 +11,7 @@ const Nav = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   return (
-    <nav className="flex justify-between items-center w-full mb-0 py-3 px-6 bg-[#010409] border-b border-[#010409]">
+    <nav className="flex justify-between items-center w-full mb-0 py-2 px-6 bg-[#010409] border-b border-[#010409]">
       {/* Left side: Logo and PromptSharing */}
       <Link href="/" className="flex items-center gap-2">
         <Sparkles className="w-7 h-7 text-white" />
@@ -24,7 +24,7 @@ const Nav = () => {
           href="/posts"
           className="text-sm font-semibold text-white hover:text-white/80 transition px-2"
         >
-          Posts
+          My Posts
         </Link>
         {session ? (
           <Link

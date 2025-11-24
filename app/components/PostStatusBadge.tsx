@@ -14,8 +14,8 @@ export default function PostStatusBadge({ published }: PostStatusBadgeProps) {
     <span
       className={`px-2 py-0.5 inline-flex text-xs font-light rounded-full ${
         published
-          ? " text-[#b0b0b0] border border-[#404040]"
-          : " text-[#909090] border border-[#404040]"
+          ? " text-[#cf6b6b] border border-[#404040]"
+          : " text-[#909090] border border-[#524a4a]"
       }`}
     >
       {published ? "Published" : "Draft"}
