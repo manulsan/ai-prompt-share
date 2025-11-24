@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useSession, signIn, signOut } from "next-auth/react";
+import { Sparkles } from "lucide-react";
 
 const Nav = () => {
   const { data: session, status } = useSession();
@@ -13,13 +14,7 @@ const Nav = () => {
     <nav className="flex justify-between items-center w-full mb-0 py-3 px-6 bg-[#010409] border-b border-[#010409]">
       {/* Left side: Logo and PromptSharing */}
       <Link href="/" className="flex items-center gap-2">
-        <Image
-          src="/assets/images/logo.svg"
-          alt="Logo"
-          width={28}
-          height={28}
-          className="object-contain brightness-0 invert"
-        />
+        <Sparkles className="w-7 h-7 text-white" />
         <p className="text-base font-semibold text-white">PromptSharing</p>
       </Link>
 
