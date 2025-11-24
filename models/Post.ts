@@ -28,9 +28,20 @@ const PostSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    likes: {
+      type: Number,
+      default: 0,
+      required: true,
+    },
+    likedBy: {
+      type: [String],
+      default: [],
+      required: true,
+    },
   },
   {
     timestamps: true,
+    minimize: false,
   }
 );
 

@@ -36,24 +36,18 @@ export async function PUT(
     const { id } = await params;
     const session = await getServerSession();
 
-    if (!session || !session.user) {
+    if (!session || !session.user)
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
 
     await connectDB();
-
     const post = await Post.findById(id);
-
     if (!post) {
       return NextResponse.json({ error: "Post not found" }, { status: 404 });
     }
-
     // Get current user
     const user = await User.findOne({ email: session.user.email });
-
-    if (!user) {
+    if (!user)
       return NextResponse.json({ error: "User not found" }, { status: 404 });
-    }
 
     // Check ownership
     if (post.author.toString() !== user._id.toString()) {
@@ -62,7 +56,6 @@ export async function PUT(
         { status: 403 }
       );
     }
-
     const body = await req.json();
     const { title, content, slug, tags, published } = body;
 
@@ -81,8 +74,14 @@ export async function PUT(
     post.tags = tagsArray;
     post.published = published !== undefined ? published : post.published;
 
+    if (!post.likes) post.likes = 0;
+    if (!post.likedBy) post.likedBy = [];
+
+    console.log("Updated likes:", post.likes);
+
     await post.save();
 
+    console.log("Post updated:", post);
     return NextResponse.json(
       { message: "Post updated successfully", post },
       { status: 200 }

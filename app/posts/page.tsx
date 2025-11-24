@@ -104,7 +104,7 @@ export default function PostsPage() {
   if (isLoading) {
     return (
       <div className="max-w-6xl mx-auto px-4 py-8">
-        <p className="text-center text-gray-500">Loading posts...</p>
+        <p className="text-center">Loading posts...</p>
       </div>
     );
   }
@@ -119,12 +119,12 @@ export default function PostsPage() {
 
   return (
     // <div className="max-w-6xl mx-auto px-4 py-8">
-    <div className="max-w-6xl mx-auto px-4">
+    <div className="max-w-6xl mx-auto px-4 pt-2">
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold text-gray-900">Posts</h1>
+        <h1 className="text-3xl font-bold">Posts</h1>
         <Link
           href="/posts/new"
-          className="px-4 py-2 bg-black text-white text-sm font-semibold rounded-lg hover:bg-gray-800"
+          className="px-4 py-1 bg-gray-600 text-white text-sm font-semibold rounded-lg hover:bg-gray-800"
         >
           Create Post
         </Link>
@@ -135,59 +135,55 @@ export default function PostsPage() {
           No posts yet. Create your first post!
         </p>
       ) : (
-        <div className="bg-white rounded-lg shadow overflow-hidden">
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
+        <div className=" rounded-lg shadow overflow-hidden">
+          <table className="min-w-full divide-y divide-gray-200 font-bold">
+            <thead className="border-b ">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
                   Title
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
                   Author
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
                   Status
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
                   Created
                 </th>
-                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-right text-xs font-medium uppercase tracking-wider">
                   Actions
                 </th>
               </tr>
             </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
+            <tbody className="divide-y divide-gray-600">
               {posts.map((post) => (
-                <tr key={post._id} className="hover:bg-gray-50">
+                <tr key={post._id} className="hover:bg-gray-900">
                   <td className="px-6 py-4">
-                    <div className="text-sm font-medium text-gray-900">
-                      {post.title}
-                    </div>
-                    <div className="text-sm text-gray-500">/{post.slug}</div>
+                    <div className="text-sm font-bold">{post.title}</div>
+                    <div className="text-sm font-medium">/{post.slug}</div>
                   </td>
                   <td className="px-6 py-4">
-                    <div className="text-sm text-gray-900">
-                      {post.author.name}
-                    </div>
+                    <div className="text-sm ">{post.author.name}</div>
                   </td>
                   <td className="px-6 py-4">
                     <PostStatusBadge published={post.published} />
                   </td>
-                  <td className="px-6 py-4 text-sm text-gray-500">
+                  <td className="px-6 py-4 text-sm">
                     {new Date(post.createdAt).toLocaleDateString()}
                   </td>
                   <td className="px-6 py-4 text-right text-sm font-medium">
                     <div className="flex justify-end gap-2">
                       <Link
                         href={`/posts/edit/${post._id}`}
-                        className="text-blue-600 hover:text-blue-900 p-1"
+                        className="text-blue-700 hover:text-blue-500 p-1"
                         title="Edit"
                       >
                         <Pencil className="w-5 h-5" />
                       </Link>
                       <button
                         onClick={() => handleDelete(post._id, post.title)}
-                        className="text-red-600 hover:text-red-900 p-1"
+                        className="text-red-800 hover:text-red-500 p-1"
                         title="Delete"
                       >
                         <Trash2 className="w-5 h-5" />
@@ -210,7 +206,7 @@ export default function PostsPage() {
 
       {/* Results info */}
       {total > 0 && (
-        <p className="text-center text-sm text-gray-500 mt-4">
+        <p className="text-center text-sm mt-4">
           Showing {(page - 1) * limit + 1} to {Math.min(page * limit, total)} of{" "}
           {total} posts
         </p>

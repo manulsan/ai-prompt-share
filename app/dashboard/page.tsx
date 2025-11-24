@@ -57,8 +57,8 @@ export default function DashboardPage() {
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
       <div className="mb-8">
-        <h1 className="text-4xl font-bold text-gray-900 mb-2">Dashboard</h1>
-        <p className="text-gray-600">
+        <h1 className="text-4xl font-bold  mb-2">Dashboard</h1>
+        <p className="text-gray-300">
           Welcome back, {session?.user?.name || "User"}
         </p>
       </div>
@@ -66,7 +66,7 @@ export default function DashboardPage() {
       {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Users Count Panel */}
-        <div className="bg-linear-to-br from-indigo-50 to-purple-50 rounded-xl shadow-lg p-6 border border-indigo-100">
+        <div className="bg-linear-to-br from-indigo-50 to-purple-500 rounded-xl shadow-lg p-6 border border-indigo-100">
           <div className="flex items-center justify-between mb-4">
             <div className="p-3 bg-indigo-100 rounded-lg">
               <Users className="w-8 h-8 text-indigo-600" />
@@ -76,12 +76,14 @@ export default function DashboardPage() {
             <p className="text-indigo-600 text-sm font-medium mb-1">
               Total Users
             </p>
-            <p className="text-4xl font-bold text-gray-900">{stats.totalUsers}</p>
+            <p className="text-4xl font-bold text-gray-900">
+              {stats.totalUsers}
+            </p>
           </div>
         </div>
 
         {/* Posts Count Panel */}
-        <div className="bg-linear-to-br from-pink-50 to-rose-50 rounded-xl shadow-lg p-6 border border-pink-100">
+        <div className="bg-linear-to-br from-pink-50 to-rose-500 rounded-xl shadow-lg p-6 border border-pink-100">
           <div className="flex items-center justify-between mb-4">
             <div className="p-3 bg-pink-100 rounded-lg">
               <FileText className="w-8 h-8 text-pink-600" />
@@ -91,13 +93,15 @@ export default function DashboardPage() {
             <p className="text-pink-600 text-sm font-medium mb-1">
               Total Posts
             </p>
-            <p className="text-4xl font-bold text-gray-900">{stats.totalPosts}</p>
+            <p className="text-4xl font-bold text-gray-900">
+              {stats.totalPosts}
+            </p>
           </div>
         </div>
       </div>
 
       {/* Quick Actions */}
-      <div className="mt-8 bg-white rounded-xl shadow-md border border-gray-200 p-6">
+      <div className="mt-8 bg-gray-200 rounded-xl shadow-md border border-gray-200 p-6">
         <h2 className="text-xl font-bold text-gray-900 mb-4">Quick Actions</h2>
         <div className="flex flex-wrap gap-4">
           <button

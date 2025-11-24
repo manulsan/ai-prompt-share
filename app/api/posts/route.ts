@@ -43,11 +43,21 @@ export async function GET(req: NextRequest) {
       .skip(skip)
       .limit(limit);
 
+    // Ensure likes and likedBy fields are present
+    const postsWithDefaults = posts.map((post) => {
+      const postObj = post.toObject();
+      return {
+        ...postObj,
+        likes: postObj.likes ?? 0,
+        likedBy: postObj.likedBy ?? [],
+      };
+    });
+
     const total = await Post.countDocuments(query);
 
     return NextResponse.json(
       {
-        posts,
+        posts: postsWithDefaults,
         pagination: {
           total,
           page,
@@ -111,8 +121,10 @@ export async function POST(req: NextRequest) {
       tags: tagsArray,
       published,
       author: user._id,
+      // likes: 0,
+      // likedBy: [],
     });
-
+    console.log("New post created:", newPost);
     return NextResponse.json(
       { message: "Post created successfully", post: newPost },
       { status: 201 }
@@ -130,6 +142,53 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json(
       { error: "Failed to create post" },
+      { status: 500 }
+    );
+  }
+}
+
+export async function PATCH(request: NextRequest) {
+  try {
+    const { postId, email } = await request.json();
+
+    if (!email || !postId) {
+      return NextResponse.json(
+        { error: "Email and postId are required" },
+        { status: 400 }
+      );
+    }
+
+    await connectDB();
+
+    const post = await Post.findById(postId);
+
+    if (!post) {
+      return NextResponse.json({ error: "Post not found" }, { status: 404 });
+    }
+
+    const likedByArray = post.likedBy || [];
+    const isAlreadyLiked = likedByArray.includes(email);
+
+    if (isAlreadyLiked) {
+      // Unlike
+      post.likes = Math.max((post.likes || 0) - 1, 0);
+      post.likedBy = likedByArray.filter((e: string) => e !== email);
+    } else {
+      // Like
+      post.likes = (post.likes || 0) + 1;
+      post.likedBy = [...likedByArray, email];
+    }
+
+    await post.save();
+
+    return NextResponse.json({
+      likes: post.likes,
+      likedBy: post.likedBy,
+    });
+  } catch (error: any) {
+    console.error("Error updating like:", error);
+    return NextResponse.json(
+      { error: "Failed to update like", details: error.message },
       { status: 500 }
     );
   }

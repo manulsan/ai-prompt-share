@@ -10,41 +10,41 @@ const Nav = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   return (
-    <nav className="flex justify-between items-center w-full mb-8 pt-3 px-4">
+    <nav className="flex justify-between items-center w-full mb-0 py-3 px-6 bg-[#010409] border-b border-[#010409]">
       {/* Left side: Logo and PromptSharing */}
       <Link href="/" className="flex items-center gap-2">
         <Image
           src="/assets/images/logo.svg"
           alt="Logo"
-          width={30}
-          height={30}
-          className="object-contain"
+          width={28}
+          height={28}
+          className="object-contain brightness-0 invert"
         />
-        <p className="text-lg font-semibold text-gray-900">PromptSharing</p>
+        <p className="text-base font-semibold text-white">PromptSharing</p>
       </Link>
 
-      {/* Right side: Posts, Blog, Sign In */}
-      <div className="flex items-center gap-8">
+      {/* Right side: Posts, Dashboard, Sign In */}
+      <div className="flex items-center gap-4">
         <Link
           href="/posts"
-          className="text-sm font-medium text-gray-700 hover:text-gray-900"
+          className="text-sm font-semibold text-white hover:text-white/80 transition px-2"
         >
-          Post
+          Posts
         </Link>
         {session ? (
           <Link
             href="/dashboard"
-            className="text-sm font-medium text-gray-700 hover:text-gray-900"
+            className="text-sm font-semibold text-white hover:text-white/80 transition px-2"
           >
             Dashboard
           </Link>
         ) : (
-          <span className="text-sm font-medium text-gray-400 cursor-not-allowed">
+          <span className="text-sm font-semibold text-white/50 cursor-not-allowed px-2">
             Dashboard
           </span>
         )}
         {isLoading ? (
-          <div className="px-4 py-2 text-sm font-semibold text-gray-400">
+          <div className="px-3 py-1.5 text-sm font-medium text-white/60">
             Loading...
           </div>
         ) : session ? (
@@ -57,31 +57,33 @@ const Nav = () => {
                 <Image
                   src={session.user.image}
                   alt={session.user.name || "User"}
-                  width={40}
-                  height={40}
-                  className="rounded-full object-cover border-2 border-gray-300 hover:border-gray-400 transition"
+                  width={32}
+                  height={32}
+                  className="rounded-full object-cover border-2 border-white/20 hover:border-white/40 transition"
                 />
               ) : (
-                <div className="w-10 h-10 rounded-full bg-gray-800 text-white flex items-center justify-center text-sm font-semibold hover:bg-gray-700 transition">
+                <div className="w-8 h-8 rounded-full bg-white/10 text-white flex items-center justify-center text-sm font-semibold hover:bg-white/20 transition border-2 border-white/20">
                   {session.user?.name?.charAt(0).toUpperCase() || "U"}
                 </div>
               )}
             </button>
 
             {isDropdownOpen && (
-              <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-50">
-                <div className="px-4 py-2 border-b border-gray-200">
-                  <p className="text-sm font-semibold text-gray-900">
+              <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg border border-[#d0d7de] py-1 z-50">
+                <div className="px-4 py-3 border-b border-[#d0d7de]">
+                  <p className="text-sm font-semibold text-[#24292f]">
                     {session.user?.name || "User"}
                   </p>
-                  <p className="text-xs text-gray-500">{session.user?.email}</p>
+                  <p className="text-xs text-[#57606a]">
+                    {session.user?.email}
+                  </p>
                 </div>
                 <button
                   onClick={() => {
                     setIsDropdownOpen(false);
                     signOut();
                   }}
-                  className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition"
+                  className="w-full text-left px-4 py-2 text-sm text-[#cf222e] hover:bg-[#fff8f8] transition"
                 >
                   Sign Out
                 </button>
@@ -91,7 +93,7 @@ const Nav = () => {
         ) : (
           <button
             onClick={() => signIn("google")}
-            className="px-4 py-2 text-sm font-semibold text-white bg-black rounded-lg hover:bg-gray-800"
+            className="px-4 py-1.5 text-sm font-semibold text-white bg-transparent rounded-md hover:bg-white/10 border border-white/30 hover:border-white/50 transition"
           >
             Sign In
           </button>
