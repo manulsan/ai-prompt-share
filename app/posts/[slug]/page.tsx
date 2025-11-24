@@ -92,23 +92,23 @@ export default function PostDetailPage() {
   }
 
   return (
-    <article className="max-w-4xl mx-auto px-4 pt-4 pb-6">
+    <article className="max-w-4xl mx-auto px-3 pt-3 pb-6">
       {/* Post Header */}
-      <header className="mb-6">
+      <header className="mb-4">
         {/* Title */}
-        <h1 className="post_title">{post.title}</h1>
+        <h2 className="post_title">{post.title}</h2>
 
         {/* Meta Information */}
-        <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
-          <div className="flex flex-wrap items-center gap-4">
+        <div className="flex flex-wrap items-center justify-between gap-2 mb-">
+          <div className="flex flex-wrap items-center gap-2">
             {/* Author */}
             <div className="flex items-center gap-2">
               {post.author.image ? (
                 <Image
                   src={post.author.image}
                   alt={post.author.name}
-                  width={40}
-                  height={40}
+                  width={35}
+                  height={35}
                   className="rounded-full"
                 />
               ) : (
@@ -146,7 +146,7 @@ export default function PostDetailPage() {
 
       {/* Post Content */}
       <div className="prose prose-lg max-w-none">
-        <div className=" rounded-lg shadow-sm border border-gray-400 p-6 markdown-content">
+        <div className=" rounded-lg shadow-sm border border-gray-400 px-6 markdown-content">
           <ReactMarkdown
             remarkPlugins={[remarkGfm]}
             rehypePlugins={[rehypeRaw]}

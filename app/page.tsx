@@ -86,7 +86,7 @@ export default function Home() {
       <section className="flex-1 min-w-0">
         <div className="text-center mb-10">
           <h1 className="text-4xl font-semibold mb-3 gradient-heading">
-            Creative AI Prompt Posts
+            Creative AI Prompts
           </h1>
           <p className="text-base max-w-2xl mx-auto text-amber-400">
             Share ideas, stories, insights and experiences from our community of
@@ -142,7 +142,7 @@ export default function Home() {
                       <div className="flex items-center justify-between mb-2 gap-2">
                         <div className="flex items-center gap-2 flex-1 min-w-0">
                           <FileText className="w-4 h-4  shrink-0" />
-                          <h3 className="text-base font-semibold text-[#5da2f1] line-clamp-1 hover:underline cursor-pointer">
+                          <h3 className="text-base font-semibold text-[#8bb3e1] line-clamp-1 hover:underline cursor-pointer">
                             {post.title}
                           </h3>
                         </div>
