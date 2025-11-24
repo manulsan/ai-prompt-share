@@ -82,7 +82,7 @@ export default function Home() {
   };
 
   return (
-    <div className="flex gap-6 w-full max-w-7xl mx-auto px-4 py-6 min-h-screen">
+    <div className="page_div">
       <section className="flex-1 min-w-0">
         <div className="text-center mb-10">
           <h1 className="text-4xl font-semibold mb-3 gradient-heading">
@@ -102,7 +102,8 @@ export default function Home() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search posts by title, content, or tags..."
-              className="search_bar"
+              // className="search_bar"
+              className="input_search_bar"
             />
             <button
               type="submit"

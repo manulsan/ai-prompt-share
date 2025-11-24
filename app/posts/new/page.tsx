@@ -110,9 +110,8 @@ export default function NewPostPage() {
   };
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-4">
+    <div className="page_div">
       <h1 className="post_title">Create New Post</h1>
-
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Title */}
         <div>

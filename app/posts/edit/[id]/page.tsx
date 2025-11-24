@@ -108,7 +108,7 @@ export default function EditPostPage() {
 
   if (error) {
     return (
-      <div className="max-w-3xl mx-auto px-4 py-8">
+      <div className="page_div">
         <p className="text-center text-red-500">Error: {error}</p>
         <div className="text-center mt-4">
           <button

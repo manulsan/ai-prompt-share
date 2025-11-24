@@ -5,7 +5,8 @@
 /* GitHub Theme Colors */
 /* 010409 */
 :root {
-  --background: #0d1117;
+  /* --background: #0d1117; */
+  --background: #010409;
   --foreground: #b0b0b0;
   /* --foreground: #e0e0e0; */
   --github-border: #d0d7de;
@@ -65,6 +66,19 @@ body {
   background-clip: text;
 }
 
+.h1_title {
+  background: linear-gradient(135deg, #f9faf4 40%, #db570b 90%, #d30bea 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: 2.25rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
 .gradient-post-panel {
   /* background: linear-gradient(135deg, #ffffff 0%, #f0f4ff 50%, #fef3ff 100%); */
   background: var(--background);
@@ -97,6 +111,28 @@ body {
   box-shadow: 0 0 0 2px rgba(9, 105, 218, 0.2);
 }
 
+.input_search_bar {
+  width: 100%;
+  padding-left: 3rem;
+  padding-right: 1rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  background-color: #0d1117;
+  border: 1px solid #30363d;
+  border-radius: 0.5rem;
+  color: white;
+  transition: all 0.2s ease;
+}
+
+.input_search_bar::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.input_search_bar:focus {
+  outline: none;
+  border-color: #58a6ff;
+}
+
 .text_label {
   font-size: 0.875rem;
   font-weight: 500;  
@@ -112,7 +148,7 @@ body {
 .text_label_comment2 {
   font-size: 0.80rem;
   font-weight: 400;  
-  color: #909090;
+  color: #808080;
 }
 
 .input_box {
@@ -123,6 +159,7 @@ body {
   transition: all 0.2s ease;
   background-color: var(--background);
   color: var(--foreground); 
+  color-scheme: dark;
 }
 
 .input_box:focus {
@@ -175,4 +212,12 @@ body {
   .post_title {
     font-size: 2rem;
   }
+}
+
+.page_div {
+  min-height: calc(100vh - 4rem);
+  max-width: 72rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1.5rem;
 }

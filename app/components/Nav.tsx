@@ -20,16 +20,23 @@ const Nav = () => {
 
       {/* Right side: Posts, Dashboard, Sign In */}
       <div className="flex items-center gap-4">
+        <Link
+          href="/youtube-search"
+          className="text-sm font-semibold text-white hover:text-white/80 transition px-2"
+        >
+          @Youtube
+        </Link>
+
         {session ? (
           <Link
             href="/posts"
             className="text-sm font-semibold text-white hover:text-white/80 transition px-2"
           >
-            My Posts
+            Posts
           </Link>
         ) : (
           <span className="text-sm font-semibold text-white/50 cursor-not-allowed px-2">
-            My Posts
+            Posts
           </span>
         )}
         {session ? (

@@ -22,7 +22,7 @@ const HashTags: React.FC<HashTagsProps> = ({ tags }) => {
     <div className="flex flex-wrap mb-3 items-center gap-1 pt-3">
       <Tag className="w-3 h-3 text-[#a4a9af]" />
       {tags.slice(0, 3).map((tag, index) => (
-        <span key={index} className="px-1 py-0.5text-[#a4a9af] text-sm">
+        <span key={index} className="px-1 py-0.5text-[#a4a9af] text-md">
           {tag}
         </span>
       ))}

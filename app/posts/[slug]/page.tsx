@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Image from "next/image";
-import { ArrowLeft, Calendar, User, Copy, Home } from "lucide-react";
+import { ArrowLeft, Calendar, User, Copy, Home, FileText } from "lucide-react";
 import PostStatusBadge from "@/app/components/PostStatusBadge";
 import HashTags from "@/app/components/HashTags";
 import ButtonHome from "@/app/components/ButtonHome";
@@ -92,11 +92,14 @@ export default function PostDetailPage() {
   }
 
   return (
-    <article className="max-w-4xl mx-auto px-3 pt-3 pb-6">
+    <article className="page_div">
       {/* Post Header */}
       <header className="mb-4">
         {/* Title */}
-        <h2 className="post_title">{post.title}</h2>
+        <h2 className="h1_title">
+          <FileText className="w-9 h-9" />
+          {post.title}
+        </h2>
 
         {/* Meta Information */}
         <div className="flex flex-wrap items-center justify-between gap-2 mb-">
@@ -121,14 +124,14 @@ export default function PostDetailPage() {
 
             {/* Date */}
             <div className="flex items-center gap-2">
-              <Calendar className="w-4 h-4" />
-              <span>
+              {/* <Calendar className="w-4 h-4" /> */}
+              {/* <span className="text-sm text-gray-500">
                 {new Date(post.createdAt).toLocaleDateString("en-US", {
                   year: "numeric",
                   month: "long",
                   day: "numeric",
                 })}
-              </span>
+              </span> */}
             </div>
             <PostStatusBadge published={post.published} />
           </div>
@@ -146,7 +149,10 @@ export default function PostDetailPage() {
 
       {/* Post Content */}
       <div className="prose prose-lg max-w-none">
-        <div className=" rounded-lg shadow-sm border border-gray-400 px-6 markdown-content">
+        <div
+          className=" rounded-lg shadow-sm border border-gray-400 px-6 markdown-content"
+          style={{ minHeight: "250px" }}
+        >
           <ReactMarkdown
             remarkPlugins={[remarkGfm]}
             rehypePlugins={[rehypeRaw]}

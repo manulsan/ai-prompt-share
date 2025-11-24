@@ -118,9 +118,8 @@ export default function PostsPage() {
   }
 
   return (
-    // <div className="max-w-6xl mx-auto px-4 py-8">
-    <div className="max-w-6xl mx-auto px-4 pt-2">
-      <div className="flex justify-between items-center mb-8">
+    <div className="page_div">
+      <div className="flex justify-between items-center mb-8 ">
         <h1 className="text-3xl font-bold">Posts</h1>
         <Link
           href="/posts/new"
