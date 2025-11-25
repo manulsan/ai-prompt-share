@@ -5,11 +5,13 @@ import { useSession } from "next-auth/react";
 import { Save, X } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { useResponsiveContainer } from "@/app/hooks/useResponsiveContainer";
 
 export default function EditPostPage() {
   const router = useRouter();
   const params = useParams();
   const { data: session, status } = useSession();
+  const { getContainerClass } = useResponsiveContainer();
   const [isLoading, setIsLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
@@ -108,7 +110,7 @@ export default function EditPostPage() {
 
   if (error) {
     return (
-      <div className="page_div">
+      <div className={getContainerClass()}>
         <p className="text-center text-red-500">Error: {error}</p>
         <div className="text-center mt-4">
           <button

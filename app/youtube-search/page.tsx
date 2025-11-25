@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { Search, Youtube, ExternalLink } from "lucide-react";
+import { useResponsiveContainer } from "@/app/hooks/useResponsiveContainer";
 
 interface VideoResult {
   id: string;
@@ -35,6 +36,7 @@ const YoutubePage = () => {
     formatForDate(fourMonthsAgo)
   );
   const [videoDuration, setVideoDuration] = useState("");
+  const { getContainerClass } = useResponsiveContainer();
 
   const maxResultsOptions = ["6", "12", "24", "50"];
   const durationOptions = [
@@ -85,7 +87,7 @@ const YoutubePage = () => {
   };
 
   return (
-    <div className="page_div">
+    <div className={getContainerClass()}>
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="mb-8">

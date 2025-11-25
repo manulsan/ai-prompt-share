@@ -5,6 +5,7 @@ import { Pencil, Trash2, PenSquare } from "lucide-react";
 import { useSession } from "next-auth/react";
 import PostStatusBadge from "@/app/components/PostStatusBadge";
 import PagePagination from "@/app/components/PagePagination";
+import { useResponsiveContainer } from "@/app/hooks/useResponsiveContainer";
 
 interface Post {
   _id: string;
@@ -30,6 +31,7 @@ export default function PostsPage() {
   const [total, setTotal] = useState(0);
   const [userId, setUserId] = useState<string | null>(null);
   const limit = 10;
+  const { getContainerClass } = useResponsiveContainer();
 
   useEffect(() => {
     if (session?.user) {
@@ -118,7 +120,7 @@ export default function PostsPage() {
   }
 
   return (
-    <div className="page_div">
+    <div className={getContainerClass()}>
       <div className="flex justify-between items-center mb-8 ">
         <h1 className="text-3xl font-bold">Posts</h1>
         <Link
@@ -135,66 +137,125 @@ export default function PostsPage() {
           No posts yet. Create your first post!
         </p>
       ) : (
-        <div className=" rounded-lg shadow overflow-hidden">
-          <table className="min-w-full divide-y divide-gray-200 font-bold">
-            <thead className="border-b ">
-              <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
-                  Title
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
-                  Author
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
-                  Status
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
-                  Created
-                </th>
-                <th className="px-6 py-3 text-right text-xs font-medium uppercase tracking-wider">
-                  Actions
-                </th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-600">
-              {posts.map((post) => (
-                <tr key={post._id} className="hover:bg-gray-900">
-                  <td className="px-6 py-4">
-                    <div className="text-sm font-bold">{post.title}</div>
-                    <div className="text-sm font-medium">/{post.slug}</div>
-                  </td>
-                  <td className="px-6 py-4">
-                    <div className="text-sm ">{post.author.name}</div>
-                  </td>
-                  <td className="px-6 py-4">
-                    <PostStatusBadge published={post.published} />
-                  </td>
-                  <td className="px-6 py-4 text-sm">
-                    {new Date(post.createdAt).toLocaleDateString()}
-                  </td>
-                  <td className="px-6 py-4 text-right text-sm font-medium">
-                    <div className="flex justify-end gap-2">
-                      <Link
-                        href={`/posts/edit/${post._id}`}
-                        className="text-blue-700 hover:text-blue-500 p-1"
-                        title="Edit"
-                      >
-                        <Pencil className="w-5 h-5" />
-                      </Link>
-                      <button
-                        onClick={() => handleDelete(post._id, post.title)}
-                        className="text-red-800 hover:text-red-500 p-1"
-                        title="Delete"
-                      >
-                        <Trash2 className="w-5 h-5" />
-                      </button>
-                    </div>
-                  </td>
+        <>
+          {/* Desktop Table View - Hidden on mobile */}
+          <div className="hidden md:block rounded-lg shadow overflow-hidden">
+            <table className="min-w-full divide-y divide-gray-200 font-bold">
+              <thead className="border-b ">
+                <tr>
+                  <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+                    Title
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+                    Author
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+                    Status
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+                    Created
+                  </th>
+                  <th className="px-6 py-3 text-right text-xs font-medium uppercase tracking-wider">
+                    Actions
+                  </th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody className="divide-y divide-gray-600">
+                {posts.map((post) => (
+                  <tr key={post._id} className="hover:bg-gray-900">
+                    <td className="px-6 py-4">
+                      <div className="text-sm font-bold">{post.title}</div>
+                      <div className="text-sm font-medium">/{post.slug}</div>
+                    </td>
+                    <td className="px-6 py-4">
+                      <div className="text-sm ">{post.author.name}</div>
+                    </td>
+                    <td className="px-6 py-4">
+                      <PostStatusBadge published={post.published} />
+                    </td>
+                    <td className="px-6 py-4 text-sm">
+                      {new Date(post.createdAt).toLocaleDateString()}
+                    </td>
+                    <td className="px-6 py-4 text-right text-sm font-medium">
+                      <div className="flex justify-end gap-2">
+                        <Link
+                          href={`/posts/edit/${post._id}`}
+                          className="text-blue-700 hover:text-blue-500 p-1"
+                          title="Edit"
+                        >
+                          <Pencil className="w-5 h-5" />
+                        </Link>
+                        <button
+                          onClick={() => handleDelete(post._id, post.title)}
+                          className="text-red-800 hover:text-red-500 p-1"
+                          title="Delete"
+                        >
+                          <Trash2 className="w-5 h-5" />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          {/* Mobile Card View - Visible only on mobile */}
+          <div className="md:hidden space-y-4">
+            {posts.map((post) => (
+              <div
+                key={post._id}
+                className="bg-[#0d1117] border border-[#30363d] rounded-lg p-4 hover:border-[#58a6ff] transition"
+              >
+                {/* Title and Slug */}
+                <div className="mb-3">
+                  <h3 className="text-base font-bold text-white mb-1">
+                    {post.title}
+                  </h3>
+                  <p className="text-sm text-white/60">/{post.slug}</p>
+                </div>
+
+                {/* Info Grid */}
+                <div className="space-y-2 mb-3 text-sm">
+                  <div className="flex justify-between items-center">
+                    <span className="text-white/60">Author:</span>
+                    <span className="text-white">{post.author.name}</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <div className="flex items-center gap-2">
+                      <span className="text-white/60">Status:</span>
+                      <PostStatusBadge published={post.published} />
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-white/60">Created:</span>
+                      <span className="text-white">
+                        {new Date(post.createdAt).toLocaleDateString()}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Action Buttons */}
+                <div className="flex gap-2 pt-3 border-t border-[#30363d]">
+                  <Link
+                    href={`/posts/edit/${post._id}`}
+                    className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition text-sm font-medium"
+                  >
+                    <Pencil className="w-4 h-4" />
+                    Edit
+                  </Link>
+                  <button
+                    onClick={() => handleDelete(post._id, post.title)}
+                    className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-md transition text-sm font-medium"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                    Delete
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </>
       )}
 
       {/* Pagination */}

@@ -30,8 +30,9 @@ export default function PostDetailPage() {
   const params = useParams();
   const router = useRouter();
   const [post, setPost] = useState<Post | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const { getContainerClass } = useResponsiveContainer();
 
   useEffect(() => {
     fetchPost();
@@ -67,7 +68,7 @@ export default function PostDetailPage() {
     }
   };
 
-  if (isLoading) {
+  if (loading) {
     return (
       <div className="max-w-4xl mx-auto px-4 py-8">
         <p className="text-center text-gray-500">Loading post...</p>
@@ -92,7 +93,7 @@ export default function PostDetailPage() {
   }
 
   return (
-    <article className="page_div">
+    <article className={getContainerClass()}>
       {/* Post Header */}
       <header className="mb-4">
         {/* Title */}

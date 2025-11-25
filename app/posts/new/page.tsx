@@ -5,11 +5,13 @@ import { useSession } from "next-auth/react";
 import { Check, X, Eye, Edit3 } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { useResponsiveContainer } from "@/app/hooks/useResponsiveContainer";
 
 // localhost:3000/posts/new
 export default function NewPostPage() {
   const router = useRouter();
   const { data: session, status } = useSession();
+  const { getContainerClass } = useResponsiveContainer();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
   const [formData, setFormData] = useState({
@@ -110,7 +112,7 @@ export default function NewPostPage() {
   };
 
   return (
-    <div className="page_div">
+    <div className={getContainerClass()}>
       <h1 className="post_title">Create New Post</h1>
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Title */}

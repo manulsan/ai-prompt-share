@@ -1,6 +1,11 @@
-export default function PrivacyPolicyPage() {
+"use client";
+import { useResponsiveContainer } from "@/app/hooks/useResponsiveContainer";
+
+export default function PrivacyPage() {
+  const { getContainerClass } = useResponsiveContainer();
+
   return (
-    <div className="page_div">
+    <div className={getContainerClass()}>
       <article className="max-w-4xl mx-auto prose prose-invert">
         <h1 className="h1_title">Privacy Policy</h1>
         <p className="text-white/60 mb-8">Last updated: November 25, 2025</p>

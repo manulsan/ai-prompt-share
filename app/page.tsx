@@ -6,6 +6,7 @@ import PostStatusBadge from "@/app/components/PostStatusBadge";
 import PagePagination from "@/app/components/PagePagination";
 import LikeBadge from "@/app/components/LikeBadge";
 import HashTags from "./components/HashTags";
+import { useResponsiveContainer } from "./hooks/useResponsiveContainer";
 //import UserSidebar from "@/app/components/UserSidebar";
 
 interface Post {
@@ -30,6 +31,7 @@ export default function Home() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
+  const { getContainerClass, getGridClass } = useResponsiveContainer();
 
   // Helper function to strip markdown for preview
   const stripMarkdown = (markdown: string) => {
@@ -82,7 +84,7 @@ export default function Home() {
   };
 
   return (
-    <div className="page_div">
+    <div className={getContainerClass()}>
       <section className="flex-1 min-w-0">
         <div className="text-center mb-10">
           <h1 className="text-4xl font-semibold mb-3 gradient-heading">
@@ -102,7 +104,6 @@ export default function Home() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search posts by title, content, or tags..."
-              // className="search_bar"
               className="input_search_bar"
             />
             <button
@@ -130,15 +131,13 @@ export default function Home() {
         ) : (
           <>
             {/* Posts Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+            <div className={`grid ${getGridClass()} gap-4 mb-8`}>
               {posts.map((post) => (
                 <div
                   key={post._id}
                   className="gradient-post-panel rounded-md overflow-hidden"
                 >
                   <div className="p-4">
-                    {/* Title - Clickable */}
-
                     <Link href={`/posts/${post.slug}`}>
                       <div className="flex items-center justify-between mb-2 gap-2">
                         <div className="flex items-center gap-2 flex-1 min-w-0">
@@ -151,16 +150,12 @@ export default function Home() {
                       </div>
                     </Link>
 
-                    {/* Content Preview */}
-                    {/* <p className="text-[#57606a] text-sm mb-3 line-clamp-3"> */}
                     <p className=" text-sm mb-3 line-clamp-3">
                       {stripMarkdown(post.content)}
                     </p>
 
-                    {/* Tags */}
                     <HashTags tags={post.tags} />
 
-                    {/* Author & Date & Status */}
                     <div className="flex items-center justify-between pt-3 border-t-[0.3px] border-[#606060]">
                       <div className="flex items-center gap-2">
                         <div className="w-6 h-6 rounded-full bg-[#0969da] text-white flex items-center justify-center text-xs font-semibold">
@@ -193,9 +188,6 @@ export default function Home() {
           </>
         )}
       </section>
-
-      {/* User Sidebar - visible on md+ screens */}
-      {/* <UserSidebar /> */}
     </div>
   );
 }

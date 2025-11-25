@@ -3,10 +3,12 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { Users, FileText } from "lucide-react";
+import { useResponsiveContainer } from "@/app/hooks/useResponsiveContainer";
 
 export default function DashboardPage() {
   const router = useRouter();
   const { data: session, status } = useSession();
+  const { getContainerClass } = useResponsiveContainer();
   const [stats, setStats] = useState({
     totalUsers: 0,
     totalPosts: 0,
@@ -55,7 +57,7 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="page_div">
+    <div className={getContainerClass()}>
       <div className="mb-8">
         <h1 className="text-4xl font-bold  mb-2">Dashboard</h1>
         <p className="text-gray-300">
