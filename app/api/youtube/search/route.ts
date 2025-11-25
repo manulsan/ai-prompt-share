@@ -17,9 +17,13 @@ export async function GET(request: NextRequest) {
 
     const apiKey = process.env.YOUTUBE_API_KEY;
 
-    if (!apiKey) {
+    if (!apiKey || apiKey === "your-youtube-api-key-here") {
+      console.error("YouTube API key not configured properly");
       return NextResponse.json(
-        { error: "YouTube API key not configured" },
+        {
+          error:
+            "YouTube API key not configured. Please add a valid YOUTUBE_API_KEY to your .env file. Get your API key from: https://console.cloud.google.com/apis/credentials",
+        },
         { status: 500 }
       );
     }
@@ -37,10 +41,35 @@ export async function GET(request: NextRequest) {
       youtubeUrl += `&videoDuration=${videoDuration}`;
     }
 
+    console.log("Fetching YouTube videos for query:", query);
     const response = await fetch(youtubeUrl);
 
     if (!response.ok) {
-      throw new Error(`YouTube API error: ${response.status}`);
+      const errorData = await response.json();
+      console.error("YouTube API error:", errorData);
+
+      // Provide more specific error messages
+      if (response.status === 400) {
+        return NextResponse.json(
+          { error: "Invalid API key or request parameters" },
+          { status: 400 }
+        );
+      }
+      if (response.status === 403) {
+        return NextResponse.json(
+          {
+            error:
+              "YouTube API quota exceeded or API key invalid. Please check your API key and quota.",
+          },
+          { status: 403 }
+        );
+      }
+
+      throw new Error(
+        `YouTube API error: ${response.status} - ${
+          errorData.error?.message || "Unknown error"
+        }`
+      );
     }
 
     const data = await response.json();
@@ -56,11 +85,12 @@ export async function GET(request: NextRequest) {
         description: item.snippet.description,
       })) || [];
 
+    console.log(`Found ${items.length} videos`);
     return NextResponse.json({ items });
-  } catch (error) {
+  } catch (error: any) {
     console.error("YouTube search error:", error);
     return NextResponse.json(
-      { error: "Failed to search YouTube videos" },
+      { error: error.message || "Failed to search YouTube videos" },
       { status: 500 }
     );
   }

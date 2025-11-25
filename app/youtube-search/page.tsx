@@ -59,13 +59,17 @@ const YoutubePage = () => {
       if (videoDuration) url += `&videoDuration=${videoDuration}`;
 
       const response = await fetch(url);
-      if (!response.ok) throw new Error("Failed to fetch videos");
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Failed to fetch videos");
+      }
 
       const data = await response.json();
       setVideos(data.items || []);
-    } catch (err) {
-      setError("Failed to search videos. Please try again.");
-      console.error(err);
+    } catch (err: any) {
+      setError(err.message || "Failed to search videos. Please try again.");
+      console.error("YouTube search error:", err);
     } finally {
       setLoading(false);
     }
