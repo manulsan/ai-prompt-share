@@ -214,20 +214,12 @@ body {
   }
 }
 
-.page_div {
-  min-height: calc(100vh - 4rem);
-  max-width: 72rem;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 1.5rem;
-}
-
 .mobile_div {
   min-height: calc(100vh - 4rem);
   /* max-width: 72rem; */  
   margin-left: auto;
   margin-right: auto;
-  padding: .5rem;
+  padding: .7rem;
 }
 
 .desktop_div {
