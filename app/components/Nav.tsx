@@ -10,6 +10,7 @@ import {
   Youtube,
   FileText,
   LayoutDashboard,
+  LogOut,
 } from "lucide-react";
 
 const Nav = () => {
@@ -17,6 +18,14 @@ const Nav = () => {
   const isLoading = status === "loading";
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  // Debug: Log session data
+  useEffect(() => {
+    if (session) {
+      console.log("Nav - Session user:", session.user);
+      console.log("Nav - User role:", session.user?.role);
+    }
+  }, [session]);
 
   // Close mobile menu when screen size changes to desktop
   useEffect(() => {
@@ -68,7 +77,7 @@ const Nav = () => {
               Posts
             </span>
           )}
-          {session ? (
+          {session?.user?.role === "Admin" ? (
             <Link
               href="/dashboard"
               className="text-sm font-semibold text-white hover:text-white/80 transition px-2"
@@ -108,12 +117,12 @@ const Nav = () => {
               </button>
 
               {isDropdownOpen && (
-                <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg border border-[#d0d7de] py-1 z-50">
-                  <div className="px-4 py-3 border-b border-[#d0d7de]">
-                    <p className="text-sm font-semibold text-[#24292f]">
+                <div className="absolute right-0 mt-2 w-48 bg-linear-to-br from-[#0d1117] to-[#161b22] rounded-md shadow-xl border border-[#30363d] py-1 z-50">
+                  <div className="px-4 py-3 border-b border-[#30363d]">
+                    <p className="text-sm font-semibold text-white">
                       {session.user?.name || "User"}
                     </p>
-                    <p className="text-xs text-[#57606a]">
+                    <p className="text-xs text-gray-400">
                       {session.user?.email}
                     </p>
                   </div>
@@ -122,8 +131,9 @@ const Nav = () => {
                       setIsDropdownOpen(false);
                       signOut();
                     }}
-                    className="w-full text-left px-4 py-2 text-sm text-[#cf222e] hover:bg-[#fff8f8] transition"
+                    className="w-full text-left px-4 py-2 text-sm text-red-400 hover:bg-red-500/10 hover:text-red-300 transition flex items-center gap-2"
                   >
+                    <LogOut className="w-4 h-4" />
                     Sign Out
                   </button>
                 </div>
@@ -239,7 +249,7 @@ const Nav = () => {
               </div>
             )}
 
-            {session ? (
+            {session?.user?.role === "Admin" ? (
               <Link
                 href="/dashboard"
                 onClick={() => setIsMobileMenuOpen(false)}
@@ -268,8 +278,9 @@ const Nav = () => {
                   setIsMobileMenuOpen(false);
                   signOut();
                 }}
-                className="w-full px-4 py-2.5 text-sm font-semibold text-[#cf222e] bg-[#cf222e]/10 hover:bg-[#cf222e]/20 rounded-md transition border border-[#cf222e]/30"
+                className="w-full px-4 py-2.5 text-sm font-semibold text-[#cf222e] bg-[#cf222e]/10 hover:bg-[#cf222e]/20 rounded-md transition border border-[#cf222e]/30 flex items-center justify-center gap-2"
               >
+                <LogOut className="w-4 h-4" />
                 Sign Out
               </button>
             ) : (

@@ -13,27 +13,60 @@ const authOptions: NextAuthOptions = {
         params: {
           prompt: "consent",
           access_type: "offline",
-          response_type: "code"
-        }
-      }
+          response_type: "code",
+        },
+      },
     }),
   ],
   secret: process.env.NEXTAUTH_SECRET,
+  session: {
+    strategy: "jwt",
+  },
+  cookies: {
+    sessionToken: {
+      name: `next-auth.session-token`,
+      options: {
+        httpOnly: true,
+        sameSite: "lax",
+        path: "/",
+        secure: process.env.NODE_ENV === "production",
+      },
+    },
+  },
   callbacks: {
+    async jwt({ token, user, trigger, session }) {
+      // Initial sign in
+      if (user) {
+        await connectDB();
+        const dbUser = await User.findOne({ email: user.email });
+        if (dbUser) {
+          token.id = dbUser._id.toString();
+          token.role = dbUser.role || "User";
+        }
+      }
+
+      // Update token on session update
+      if (trigger === "update" && session) {
+        await connectDB();
+        const dbUser = await User.findOne({ email: token.email });
+        if (dbUser) {
+          token.role = dbUser.role || "User";
+        }
+      }
+
+      return token;
+    },
     async redirect({ url, baseUrl }) {
       // Allows relative callback URLs
-      if (url.startsWith("/")) return `${baseUrl}${url}`
+      if (url.startsWith("/")) return `${baseUrl}${url}`;
       // Allows callback URLs on the same origin
-      else if (new URL(url).origin === baseUrl) return url
-      return baseUrl
+      else if (new URL(url).origin === baseUrl) return url;
+      return baseUrl;
     },
     async session({ session, token }) {
-      if (session.user) {
-        await connectDB();
-        const dbUser = await User.findOne({ email: session.user.email });
-        if (dbUser) {
-          (session.user as any).id = dbUser._id.toString();
-        }
+      if (session.user && token) {
+        (session.user as any).id = token.id;
+        (session.user as any).role = token.role || "User";
       }
       return session;
     },
@@ -45,7 +78,7 @@ const authOptions: NextAuthOptions = {
 
       try {
         console.log("Attempting sign in for:", user.email);
-        
+
         await connectDB();
         console.log("Database connected successfully");
 
@@ -58,6 +91,7 @@ const authOptions: NextAuthOptions = {
             email: user.email,
             name: user.name || "Unknown",
             image: user.image || "",
+            role: "User",
           });
           console.log("New user created:", newUser.email);
         } else {

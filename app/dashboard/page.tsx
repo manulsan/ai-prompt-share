@@ -19,9 +19,14 @@ export default function DashboardPage() {
     if (status === "unauthenticated") {
       router.push("/");
     } else if (status === "authenticated") {
+      // Check if user has Admin role
+      if (session?.user?.role !== "Admin") {
+        router.push("/");
+        return;
+      }
       fetchStats();
     }
-  }, [status, router]);
+  }, [status, session, router]);
 
   const fetchStats = async () => {
     try {
@@ -52,7 +57,10 @@ export default function DashboardPage() {
     );
   }
 
-  if (status === "unauthenticated") {
+  if (
+    status === "unauthenticated" ||
+    (status === "authenticated" && session?.user?.role !== "Admin")
+  ) {
     return null;
   }
 
