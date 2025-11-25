@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Search, Youtube, ExternalLink } from "lucide-react";
 
 interface VideoResult {
@@ -44,8 +44,7 @@ const YoutubePage = () => {
     { value: "long", label: "Long (> 20 min)" },
   ];
 
-  const handleSearch = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const performSearch = async () => {
     if (!searchQuery.trim()) return;
 
     setLoading(true);
@@ -73,6 +72,16 @@ const YoutubePage = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  // Fetch on page load
+  useEffect(() => {
+    performSearch();
+  }, []);
+
+  const handleSearch = async (e: React.FormEvent) => {
+    e.preventDefault();
+    performSearch();
   };
 
   return (
@@ -232,20 +241,12 @@ const YoutubePage = () => {
         )}
 
         {/* No Results */}
-        {!loading && videos.length === 0 && searchQuery && (
+        {!loading && videos.length === 0 && !error && (
           <div className="text-center py-12">
             <Youtube className="w-16 h-16 text-white/20 mx-auto mb-4" />
             <p className="text-white/60">
               No videos found. Try a different search.
             </p>
-          </div>
-        )}
-
-        {/* Initial State */}
-        {!loading && videos.length === 0 && !searchQuery && (
-          <div className="text-center py-12">
-            <Search className="w-16 h-16 text-white/20 mx-auto mb-4" />
-            <p className="text-white/60">Enter a search query to find videos</p>
           </div>
         )}
       </div>
