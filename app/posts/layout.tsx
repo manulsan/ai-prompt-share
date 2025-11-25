@@ -1,53 +1,29 @@
 import React from "react";
 import type { Metadata } from "next";
 
-const baseUrl = process.env.NEXTAUTH_URL || "http://localhost:3000";
+const baseUrl =
+  process.env.NEXTAUTH_URL || "https://ai-prompt-share-pied.vercel.app";
 
 export const metadata: Metadata = {
-  title: "All Posts",
+  title: "My Posts",
   description:
-    "Browse all AI prompts and creative ideas shared by our community. Discover the latest posts, stories, and insights from AI writers.",
-  keywords: [
-    "AI prompts",
-    "posts",
-    "community",
-    "AI writing",
-    "creative ideas",
-  ],
-
-  alternates: {
-    canonical: `${baseUrl}/posts`,
-  },
-
+    "View and manage your AI prompt posts. Create, edit, and share your creative AI prompts with the community.",
+  keywords: ["AI prompts", "my posts", "manage prompts", "AI writing"],
   openGraph: {
-    title: "All Posts | Share AI Prompts",
-    description:
-      "Browse all AI prompts and creative ideas shared by our community",
+    title: "My Posts | Share AI Prompts",
+    description: "View and manage your AI prompt posts",
     url: `${baseUrl}/posts`,
     siteName: "Share AI Prompts",
-    locale: "en_US",
     type: "website",
-    images: [
-      {
-        url: `${baseUrl}/og-image.jpg`,
-        width: 1200,
-        height: 630,
-        alt: "Share AI Prompts - All Posts",
-      },
-    ],
+    locale: "en_US",
   },
-
   twitter: {
     card: "summary_large_image",
-    title: "All Posts | Share AI Prompts",
-    description:
-      "Browse all AI prompts and creative ideas shared by our community",
-    images: [`${baseUrl}/og-image.jpg`],
+    title: "My Posts | Share AI Prompts",
+    description: "View and manage your AI prompt posts",
   },
-
-  robots: {
-    index: true,
-    follow: true,
+  alternates: {
+    canonical: `${baseUrl}/posts`,
   },
 };
 

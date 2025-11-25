@@ -1,52 +1,36 @@
 import React from "react";
 import type { Metadata } from "next";
 
-const baseUrl = process.env.NEXTAUTH_URL || "http://localhost:3000";
+const baseUrl =
+  process.env.NEXTAUTH_URL || "https://ai-prompt-share-pied.vercel.app";
 
 export const metadata: Metadata = {
-  title: "YouTube Video Search",
+  title: "YouTube Search",
   description:
-    "Search and discover YouTube videos related to AI prompts, creative writing, and AI tools. Filter by duration, date, and relevance.",
+    "Search and discover YouTube videos related to AI prompts. Filter by duration, date, and find relevant video content.",
   keywords: [
-    "YouTube search",
+    "YouTube",
     "AI videos",
+    "AI tutorials",
     "AI prompts videos",
-    "ChatGPT tutorials",
-    "AI learning",
+    "ChatGPT videos",
   ],
-
-  alternates: {
-    canonical: `${baseUrl}/youtube-search`,
-  },
-
   openGraph: {
-    title: "YouTube Video Search | Share AI Prompts",
+    title: "YouTube Search | Share AI Prompts",
     description:
-      "Search and discover YouTube videos related to AI prompts and creative writing",
+      "Search and discover YouTube videos about AI prompts and tutorials",
     url: `${baseUrl}/youtube-search`,
     siteName: "Share AI Prompts",
-    locale: "en_US",
     type: "website",
-    images: [
-      {
-        url: `${baseUrl}/og-image.jpg`,
-        width: 1200,
-        height: 630,
-        alt: "YouTube Video Search",
-      },
-    ],
+    locale: "en_US",
   },
-
   twitter: {
     card: "summary_large_image",
-    title: "YouTube Video Search | Share AI Prompts",
-    description: "Search and discover YouTube videos related to AI prompts",
-    images: [`${baseUrl}/og-image.jpg`],
+    title: "YouTube Search | Share AI Prompts",
+    description: "Search and discover YouTube videos about AI prompts",
   },
-
-  robots: {
-    index: true,
-    follow: true,
+  alternates: {
+    canonical: `${baseUrl}/youtube-search`,
   },
 };
 

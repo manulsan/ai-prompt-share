@@ -1,36 +1,34 @@
 import type { Metadata } from "next";
 
-const baseUrl = process.env.NEXTAUTH_URL || "http://localhost:3000";
+const baseUrl =
+  process.env.NEXTAUTH_URL || "https://ai-prompt-share-pied.vercel.app";
 
 export const metadata: Metadata = {
   title: "Terms of Service",
   description:
-    "Read our terms of service and understand the rules, guidelines, and policies for using Share AI Prompts platform.",
-
-  alternates: {
-    canonical: `${baseUrl}/terms`,
-  },
-
+    "Read the terms and conditions for using Share AI Prompts. Learn about user responsibilities, content guidelines, and service policies.",
+  keywords: [
+    "terms of service",
+    "user agreement",
+    "terms and conditions",
+    "platform rules",
+    "service policies",
+  ],
   openGraph: {
     title: "Terms of Service | Share AI Prompts",
-    description:
-      "Read our terms of service and understand the rules for using our platform",
+    description: "Understand the rules and guidelines for using our platform",
     url: `${baseUrl}/terms`,
     siteName: "Share AI Prompts",
-    locale: "en_US",
     type: "website",
+    locale: "en_US",
   },
-
   twitter: {
     card: "summary",
     title: "Terms of Service | Share AI Prompts",
-    description:
-      "Read our terms of service and understand the rules for using our platform",
+    description: "Understand the rules and guidelines for using our platform",
   },
-
-  robots: {
-    index: true,
-    follow: true,
+  alternates: {
+    canonical: `${baseUrl}/terms`,
   },
 };
 

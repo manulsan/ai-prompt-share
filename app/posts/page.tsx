@@ -182,6 +182,7 @@ export default function PostsPage() {
                           href={`/posts/edit/${post._id}`}
                           className="text-blue-700 hover:text-blue-500 p-1"
                           title="Edit"
+                          aria-label={`Edit post ${post.title}`}
                         >
                           <Pencil className="w-5 h-5" />
                         </Link>
@@ -189,6 +190,7 @@ export default function PostsPage() {
                           onClick={() => handleDelete(post._id, post.title)}
                           className="text-red-800 hover:text-red-500 p-1"
                           title="Delete"
+                          aria-label={`Delete post ${post.title}`}
                         >
                           <Trash2 className="w-5 h-5" />
                         </button>
@@ -247,6 +249,7 @@ export default function PostsPage() {
                   <button
                     onClick={() => handleDelete(post._id, post.title)}
                     className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-md transition text-sm font-medium"
+                    aria-label={`Delete post ${post.title}`}
                   >
                     <Trash2 className="w-4 h-4" />
                     Delete

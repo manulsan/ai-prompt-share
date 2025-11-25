@@ -9,6 +9,7 @@ import ButtonHome from "@/app/components/ButtonHome";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
+import { useResponsiveContainer } from "@/app/hooks/useResponsiveContainer";
 
 interface Post {
   _id: string;
@@ -52,7 +53,7 @@ export default function PostDetailPage() {
       console.error("Error fetching post:", error);
       setError(error.message);
     } finally {
-      setIsLoading(false);
+      setLoading(false);
     }
   };
 
@@ -84,6 +85,7 @@ export default function PostDetailPage() {
           <button
             onClick={() => router.push("/")}
             className="px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800"
+            aria-label="Go back to home page"
           >
             Back to Home
           </button>
@@ -140,7 +142,11 @@ export default function PostDetailPage() {
           {/* Status Badge */}
 
           <div className="flex items-center">
-            <button onClick={handleCopyContent} className="btn_v1">
+            <button
+              onClick={handleCopyContent}
+              className="btn_v1"
+              aria-label="Copy post content to clipboard"
+            >
               <Copy className="w-4 h-4" />
               Copy
             </button>

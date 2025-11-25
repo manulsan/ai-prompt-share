@@ -64,7 +64,7 @@ const Nav = () => {
               Posts
             </Link>
           ) : (
-            <span className="text-sm font-semibold text-white/50 cursor-not-allowed px-2">
+            <span className="text-sm font-semibold text-gray-400 cursor-not-allowed px-2">
               Posts
             </span>
           )}
@@ -76,12 +76,12 @@ const Nav = () => {
               Dashboard
             </Link>
           ) : (
-            <span className="text-sm font-semibold text-white/50 cursor-not-allowed px-2">
+            <span className="text-sm font-semibold text-gray-400 cursor-not-allowed px-2">
               Dashboard
             </span>
           )}
           {isLoading ? (
-            <div className="px-3 py-1.5 text-sm font-medium text-white/60">
+            <div className="px-3 py-1.5 text-sm font-medium text-gray-300">
               Loading...
             </div>
           ) : session ? (
@@ -89,6 +89,8 @@ const Nav = () => {
               <button
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                 className="flex items-center gap-2 focus:outline-none"
+                aria-label="User profile menu"
+                aria-expanded={isDropdownOpen}
               >
                 {session.user?.image ? (
                   <Image
@@ -141,6 +143,7 @@ const Nav = () => {
         <button
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           className="md:hidden text-white p-2 hover:bg-white/10 rounded-md transition"
+          aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
         >
           {isMobileMenuOpen ? (
             <X className="w-6 h-6" />
@@ -173,7 +176,8 @@ const Nav = () => {
             </div>
             <button
               onClick={() => setIsMobileMenuOpen(false)}
-              className="text-white/60 hover:text-white p-1 hover:bg-white/10 rounded transition"
+              className="text-gray-300 hover:text-white p-1 hover:bg-white/10 rounded transition"
+              aria-label="Close menu"
             >
               <X className="w-5 h-5" />
             </button>
@@ -200,7 +204,7 @@ const Nav = () => {
                   <p className="text-sm font-semibold text-white truncate">
                     {session.user?.name || "User"}
                   </p>
-                  <p className="text-xs text-white/60 truncate">
+                  <p className="text-xs text-gray-400 truncate">
                     {session.user?.email}
                   </p>
                 </div>
@@ -229,7 +233,7 @@ const Nav = () => {
                 <span className="text-sm font-medium">Posts</span>
               </Link>
             ) : (
-              <div className="flex items-center gap-3 px-3 py-2.5 text-white/40 cursor-not-allowed mb-1">
+              <div className="flex items-center gap-3 px-3 py-2.5 text-gray-500 cursor-not-allowed mb-1">
                 <FileText className="w-5 h-5" />
                 <span className="text-sm font-medium">Posts</span>
               </div>
@@ -245,7 +249,7 @@ const Nav = () => {
                 <span className="text-sm font-medium">Dashboard</span>
               </Link>
             ) : (
-              <div className="flex items-center gap-3 px-3 py-2.5 text-white/40 cursor-not-allowed mb-1">
+              <div className="flex items-center gap-3 px-3 py-2.5 text-gray-500 cursor-not-allowed mb-1">
                 <LayoutDashboard className="w-5 h-5" />
                 <span className="text-sm font-medium">Dashboard</span>
               </div>
@@ -255,7 +259,7 @@ const Nav = () => {
           {/* Footer - Sign In/Out Button */}
           <div className="p-4 border-t border-[#30363d]">
             {isLoading ? (
-              <div className="text-center text-sm text-white/60 py-2">
+              <div className="text-center text-sm text-gray-300 py-2">
                 Loading...
               </div>
             ) : session ? (

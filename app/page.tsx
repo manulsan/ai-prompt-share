@@ -109,6 +109,7 @@ export default function Home() {
             <button
               type="submit"
               className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 text-[#57606a] hover:text-[#0969da] transition"
+              aria-label="Search posts"
             >
               <Search className="w-5 h-5" />
             </button>

@@ -109,12 +109,14 @@ export default function DashboardPage() {
           <button
             onClick={() => router.push("/posts/new")}
             className="px-6 py-3 bg-linear-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-lg hover:from-indigo-700 hover:to-purple-700 transition"
+            aria-label="Create a new post"
           >
             Create New Post
           </button>
           <button
             onClick={() => router.push("/posts")}
             className="px-6 py-3 bg-white border border-gray-300 text-gray-700 font-semibold rounded-lg hover:bg-gray-50 transition"
+            aria-label="Go to manage posts page"
           >
             Manage Posts
           </button>

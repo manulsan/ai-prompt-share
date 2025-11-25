@@ -115,6 +115,7 @@ const YoutubePage = () => {
               type="submit"
               disabled={loading || !searchQuery.trim()}
               className="btn_v1 px-6 py-3 disabled:opacity-50 disabled:cursor-not-allowed"
+              aria-label="Search YouTube videos"
             >
               <Search className="w-5 h-5" />
               Search

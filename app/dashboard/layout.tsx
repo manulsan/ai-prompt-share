@@ -1,32 +1,27 @@
 import React from "react";
 import type { Metadata } from "next";
 
-const baseUrl = process.env.NEXTAUTH_URL || "http://localhost:3000";
+const baseUrl =
+  process.env.NEXTAUTH_URL || "https://ai-prompt-share-pied.vercel.app";
 
 export const metadata: Metadata = {
   title: "Dashboard",
   description:
-    "Manage your AI prompts, view statistics, and track your community engagement",
-
-  alternates: {
-    canonical: `${baseUrl}/dashboard`,
-  },
-
+    "Manage your AI prompts and view your profile. Track your posts and engagement with the community.",
+  keywords: ["dashboard", "AI prompts", "statistics", "manage posts"],
   openGraph: {
     title: "Dashboard | Share AI Prompts",
-    description: "Manage your AI prompts and view analytics",
+    description: "Manage your AI prompt posts and view statistics",
     url: `${baseUrl}/dashboard`,
     siteName: "Share AI Prompts",
-    locale: "en_US",
     type: "website",
+    locale: "en_US",
   },
-
   twitter: {
     card: "summary",
     title: "Dashboard | Share AI Prompts",
-    description: "Manage your AI prompts and view analytics",
+    description: "Manage your AI prompt posts and view statistics",
   },
-
   robots: {
     index: false,
     follow: false,
