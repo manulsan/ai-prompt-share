@@ -39,7 +39,7 @@ export async function GET(req: NextRequest) {
 
     const posts = await Post.find(query)
       .populate("author", "name email")
-      .sort({ createdAt: -1 })
+      .sort({ likes: -1, createdAt: -1 })
       .skip(skip)
       .limit(limit);
 
