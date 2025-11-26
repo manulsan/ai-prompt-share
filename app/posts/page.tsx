@@ -185,31 +185,28 @@ export default function PostsPage() {
             <table className="min-w-full divide-y divide-gray-200 font-bold">
               <thead className="border-b ">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
-                    Title
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
-                    Author
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
-                    Status
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
-                    Created
-                  </th>
-                  <th className="px-6 py-3 text-right text-xs font-medium uppercase tracking-wider">
-                    Actions
-                  </th>
+                  {["Title", "Author", "Status", "Created", "Actions"].map(
+                    (header, index) => (
+                      <th
+                        key={header}
+                        className={`px-6 py-3 text-left text-xs font-medium uppercase tracking-wider ${
+                          index === 4 ? "text-right" : ""
+                        }`}
+                      >
+                        {header}
+                      </th>
+                    )
+                  )}
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-600">
                 {posts.map((post) => (
                   <tr key={post._id} className="hover:bg-gray-900">
-                    <td className="px-6 py-4">
+                    <td className="px-6 py-3">
                       <div className="text-sm font-bold">{post.title}</div>
-                      <div className="text-sm font-medium">/{post.slug}</div>
+                      {/* <div className="text-sm font-medium">/{post.slug}</div> */}
                     </td>
-                    <td className="px-6 py-4">
+                    <td className="px-6 py-3">
                       <button
                         onClick={() => handleAuthorClick(post.author.email)}
                         className="text-sm text-blue-400 hover:text-blue-200 hover:underline cursor-pointer transition-colors duration-200 font-medium"
@@ -218,13 +215,13 @@ export default function PostsPage() {
                         {post.author.name}
                       </button>
                     </td>
-                    <td className="px-6 py-4">
+                    <td className="px-6 py-3">
                       <PostStatusBadge published={post.published} />
                     </td>
-                    <td className="px-6 py-4 text-sm">
+                    <td className="px-6 py-3 text-sm">
                       {new Date(post.createdAt).toLocaleDateString()}
                     </td>
-                    <td className="px-6 py-4 text-right text-sm font-medium">
+                    <td className="px-6 py-3 text-right text-sm font-medium">
                       <div className="flex justify-end gap-2">
                         <Link
                           href={`/posts/edit/${post._id}`}
