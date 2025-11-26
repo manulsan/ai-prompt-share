@@ -171,7 +171,7 @@ export default function Comments({ postId, postAuthorEmail }: CommentsProps) {
                 <button
                   type="submit"
                   disabled={isSubmitting || !newComment.trim()}
-                  className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 transition"
+                  className="btn_v1 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <Send className="w-4 h-4" />
                   {isSubmitting ? "Posting..." : "Post Comment"}
@@ -204,8 +204,8 @@ export default function Comments({ postId, postAuthorEmail }: CommentsProps) {
               key={comment._id}
               className={`p-4 rounded-lg border ${
                 comment.isAuthorReply
-                  ? "bg-blue-50 border-blue-200"
-                  : "bg-gray-50 border-gray-200"
+                  ? "bg-[#161b22] border-blue-500"
+                  : "bg-[#0d1117] border-gray-600"
               }`}
             >
               <div className="flex gap-3">
@@ -224,7 +224,7 @@ export default function Comments({ postId, postAuthorEmail }: CommentsProps) {
                 )}
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-1 flex-wrap">
-                    <span className="font-semibold text-gray-900">
+                    <span className="font-semibold text-white">
                       {comment.author.name}
                     </span>
                     {comment.isAuthorReply && (
@@ -233,7 +233,7 @@ export default function Comments({ postId, postAuthorEmail }: CommentsProps) {
                         Author
                       </span>
                     )}
-                    <span className="text-xs text-gray-500">
+                    <span className="text-xs text-gray-400">
                       {new Date(comment.createdAt).toLocaleDateString("en-US", {
                         year: "numeric",
                         month: "short",
@@ -243,14 +243,14 @@ export default function Comments({ postId, postAuthorEmail }: CommentsProps) {
                       })}
                     </span>
                   </div>
-                  <p className="text-gray-700 whitespace-pre-wrap break-words">
+                  <p className="text-gray-300 whitespace-pre-wrap break-words">
                     {comment.content}
                   </p>
                 </div>
                 {canDeleteComment(comment) && (
                   <button
                     onClick={() => handleDeleteComment(comment._id)}
-                    className="text-red-500 hover:text-red-700 p-2 hover:bg-red-50 rounded transition"
+                    className="text-red-400 hover:text-red-300 p-2 hover:bg-red-500/10 rounded transition"
                     aria-label="Delete comment"
                   >
                     <Trash2 className="w-4 h-4" />
