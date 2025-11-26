@@ -1,6 +1,9 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { Search, FileText, Tag, X } from "lucide-react";
+
+// Prevent static caching
+export const dynamic = "force-dynamic";
 import Link from "next/link";
 import PostStatusBadge from "@/app/components/PostStatusBadge";
 import PagePagination from "@/app/components/PagePagination";
@@ -70,7 +73,12 @@ export default function Home() {
         params.append("authorEmail", filterAuthorEmail);
       }
 
-      const response = await fetch(`/api/posts?${params}`);
+      const response = await fetch(`/api/posts?${params}`, {
+        cache: "no-store",
+        headers: {
+          "Cache-Control": "no-cache",
+        },
+      });
       const data = await response.json();
 
       if (response.ok) {

@@ -60,9 +60,9 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 ### Create Project ( Windows OS)
 
 ```text
-        C:\02.Tutorials> npx  create-next-app@latest blog-app --typescript --yes
-        C:\02.Tutorials> cd blog-app
-        C:\02.Tutorials\blog-app> code .
+        C:\02.Tutorials> npx  create-next-app@latest ai-prompt-share --typescript --yes
+        C:\02.Tutorials> cd ai-prompt-share
+        C:\02.Tutorials\ai-prompt-share> code .
 ```
 
 // https://www.youtube.com/watch?v=aEFkWxUNAVc
