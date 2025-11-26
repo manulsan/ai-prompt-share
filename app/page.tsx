@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { Search, FileText, Tag } from "lucide-react";
+import { Search, FileText, Tag, X } from "lucide-react";
 import Link from "next/link";
 import PostStatusBadge from "@/app/components/PostStatusBadge";
 import PagePagination from "@/app/components/PagePagination";
@@ -31,6 +31,9 @@ export default function Home() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
+  const [filterAuthorEmail, setFilterAuthorEmail] = useState<string | null>(
+    null
+  );
   const { getContainerClass, getGridClass } = useResponsiveContainer();
 
   // Helper function to strip markdown for preview
@@ -52,7 +55,7 @@ export default function Home() {
 
   useEffect(() => {
     fetchPosts();
-  }, [searchQuery, currentPage]);
+  }, [searchQuery, currentPage, filterAuthorEmail]);
 
   const fetchPosts = async () => {
     setIsLoading(true);
@@ -62,6 +65,10 @@ export default function Home() {
         page: currentPage.toString(),
         limit: "9",
       });
+
+      if (filterAuthorEmail) {
+        params.append("authorEmail", filterAuthorEmail);
+      }
 
       const response = await fetch(`/api/posts?${params}`);
       const data = await response.json();
@@ -83,6 +90,20 @@ export default function Home() {
     fetchPosts();
   };
 
+  const handleAuthorClick = (email: string) => {
+    if (filterAuthorEmail === email) {
+      setFilterAuthorEmail(null);
+    } else {
+      setFilterAuthorEmail(email);
+    }
+    setCurrentPage(1);
+  };
+
+  const clearAuthorFilter = () => {
+    setFilterAuthorEmail(null);
+    setCurrentPage(1);
+  };
+
   return (
     <div className={getContainerClass()}>
       <section className="flex-1 min-w-0">
@@ -94,6 +115,18 @@ export default function Home() {
             Share ideas, stories, insights and experiences from our community of
             AI writers
           </p>
+          {filterAuthorEmail && (
+            <div className="mt-4 flex items-center justify-center gap-2">
+              <span className="text-sm text-gray-400">Filtered by author:</span>
+              <button
+                onClick={clearAuthorFilter}
+                className="text-sm bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded-md flex items-center gap-2 transition"
+              >
+                {posts[0]?.author.name || filterAuthorEmail}
+                <X className="w-3 h-3" />
+              </button>
+            </div>
+          )}
         </div>
 
         {/* Search Bar */}
@@ -158,12 +191,18 @@ export default function Home() {
                     <HashTags tags={post.tags} />
 
                     <div className="flex items-center justify-between pt-3 border-t-[0.3px] border-[#606060]">
-                      <div className="flex items-center gap-2">
+                      <button
+                        onClick={() => handleAuthorClick(post.author.email)}
+                        className="flex items-center gap-2 hover:opacity-80 transition cursor-pointer"
+                        title="Click to filter by this author"
+                      >
                         <div className="w-6 h-6 rounded-full bg-[#0969da] text-white flex items-center justify-center text-xs font-semibold">
                           {post.author.name.charAt(0).toUpperCase()}
                         </div>
-                        <span className="text-xs">{post.author.name}</span>
-                      </div>
+                        <span className="text-xs text-blue-400 hover:text-blue-300 hover:underline">
+                          {post.author.name}
+                        </span>
+                      </button>
                       <div className="flex items-center gap-2">
                         <LikeBadge
                           postId={post._id}

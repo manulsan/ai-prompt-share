@@ -7,6 +7,7 @@ import {
   Sparkles,
   Menu,
   X,
+  Home,
   Youtube,
   FileText,
   LayoutDashboard,
@@ -58,6 +59,12 @@ const Nav = () => {
 
         {/* Desktop Navigation - Hidden on mobile */}
         <div className="hidden md:flex items-center gap-4">
+          <Link
+            href="/"
+            className="text-sm font-semibold text-white hover:text-white/80 transition px-2"
+          >
+            Home
+          </Link>
           <Link
             href="/youtube-search"
             className="text-sm font-semibold text-white hover:text-white/80 transition px-2"
@@ -224,6 +231,15 @@ const Nav = () => {
 
           {/* Navigation Links */}
           <nav className="flex-1 overflow-y-auto p-2">
+            <Link
+              href="/"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="flex items-center gap-3 px-3 py-2.5 text-white hover:bg-white/10 rounded-md transition mb-1"
+            >
+              <Home className="w-5 h-5" />
+              <span className="text-sm font-medium">Home</span>
+            </Link>
+
             <Link
               href="/youtube-search"
               onClick={() => setIsMobileMenuOpen(false)}

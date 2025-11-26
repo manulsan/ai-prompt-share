@@ -16,9 +16,9 @@ export default function PagePagination({
       <button
         onClick={() => onPageChange(Math.max(1, currentPage - 1))}
         disabled={currentPage === 1}
-        className="px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+        className="px-4 py-2 bg-[#0d1117] text-white rounded-lg hover:bg-[#161b22] disabled:opacity-50 disabled:cursor-not-allowed transition"
       >
-        Previous
+        Prev
       </button>
 
       <div className="flex gap-2">
@@ -26,10 +26,10 @@ export default function PagePagination({
           <button
             key={page}
             onClick={() => onPageChange(page)}
-            className={`px-4 py-2 rounded-lg ${
+            className={`px-4 py-2 rounded-lg transition ${
               currentPage === page
-                ? "bg-linear-to-r from-indigo-600 to-purple-600 text-white"
-                : "bg-white border border-gray-300 hover:bg-gray-50"
+                ? "bg-blue-600 text-white hover:bg-blue-700"
+                : "bg-[#0d1117] text-white hover:bg-[#161b22]"
             }`}
           >
             {page}
@@ -40,7 +40,7 @@ export default function PagePagination({
       <button
         onClick={() => onPageChange(Math.min(totalPages, currentPage + 1))}
         disabled={currentPage === totalPages}
-        className="px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+        className="px-4 py-2 bg-[#0d1117] text-white rounded-lg hover:bg-[#161b22] disabled:opacity-50 disabled:cursor-not-allowed transition"
       >
         Next
       </button>

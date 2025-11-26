@@ -21,6 +21,18 @@ export default function NewPostPage() {
     tags: "",
     published: false,
   });
+  const [isSlugManuallyEdited, setIsSlugManuallyEdited] = useState(false);
+
+  // Function to generate slug from title
+  const generateSlug = (title: string) => {
+    return title
+      .toLowerCase()
+      .trim()
+      .replace(/[^\w\s-]/g, "") // Remove special characters
+      .replace(/\s+/g, "-") // Replace spaces with hyphens
+      .replace(/-+/g, "-") // Replace multiple hyphens with single hyphen
+      .replace(/^-+|-+$/g, ""); // Remove leading/trailing hyphens
+  };
 
   // Redirect if not authenticated
   if (status === "unauthenticated") {
@@ -40,11 +52,28 @@ export default function NewPostPage() {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value, type } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]:
-        type === "checkbox" ? (e.target as HTMLInputElement).checked : value,
-    }));
+
+    // Auto-generate slug from title if slug hasn't been manually edited
+    if (name === "title" && !isSlugManuallyEdited) {
+      setFormData((prev) => ({
+        ...prev,
+        title: value,
+        slug: generateSlug(value),
+      }));
+    } else if (name === "slug") {
+      // Mark slug as manually edited when user changes it
+      setIsSlugManuallyEdited(true);
+      setFormData((prev) => ({
+        ...prev,
+        slug: value,
+      }));
+    } else {
+      setFormData((prev) => ({
+        ...prev,
+        [name]:
+          type === "checkbox" ? (e.target as HTMLInputElement).checked : value,
+      }));
+    }
   };
 
   const handleTagCheckbox = (tag: string, checked: boolean) => {
@@ -128,14 +157,17 @@ export default function NewPostPage() {
             value={formData.title}
             onChange={handleChange}
             // className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent"
-            className="input_box2"
+            className="input_box"
             placeholder="Enter post title"
           />
         </div>
         {/* Slug */}
         <div>
           <label htmlFor="slug" className="block text_label mb-2">
-            Slug *
+            Slug *{" "}
+            {!isSlugManuallyEdited && (
+              <span className="text-gray-500 text-xs">(auto-generated)</span>
+            )}
           </label>
           <input
             type="text"
@@ -144,11 +176,12 @@ export default function NewPostPage() {
             required
             value={formData.slug}
             onChange={handleChange}
-            className="input_box2"
+            className="input_box"
             placeholder="post-url-slug"
           />
           <p className="text_label_comment mt-1">
-            URL-friendly version (e.g., my-first-post)
+            URL-friendly version. Auto-generated from title, but you can edit
+            it.
           </p>
         </div>
         {/* Content */}
@@ -180,7 +213,7 @@ export default function NewPostPage() {
           </div>
 
           {showPreview ? (
-            <div className="w-full min-h-[300px] px-4 input_box2">
+            <div className="w-full min-h-[300px] px-4 input_box">
               <ReactMarkdown
                 remarkPlugins={[remarkGfm]}
                 components={{
@@ -270,7 +303,31 @@ Code blocks
 
           {/* Quick Tag Checkboxes */}
           <div className="flex flex-wrap gap-4 mb-3">
-            {["nextjs", "nodejs", "typescript"].map((tag) => (
+            {[
+              "Nextjs",
+              "Nodejs",
+              "Typescript",
+              "Javascript",
+              "React",
+              "Tailwindcss",
+              "Mongodb",
+              "Express",
+              "Zod",
+              "Yup",
+              "Prisma",
+              "Marketplace",
+              "SEO",
+              "OAuth",
+              "Error Handling",
+              "NextAuth",
+              "Unit Testing",
+              "Jest",
+              "AI",
+              "State",
+              "Business",
+              "Strategy",
+              "Marketing",
+            ].map((tag) => (
               <label
                 key={tag}
                 className="flex items-center gap-2 cursor-pointer"
@@ -281,13 +338,7 @@ Code blocks
                   onChange={(e) => handleTagCheckbox(tag, e.target.checked)}
                   className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
                 />
-                <span className="text-sm">
-                  {tag === "nextjs"
-                    ? "Next.js"
-                    : tag === "nodejs"
-                    ? "Node.js"
-                    : "TypeScript"}
-                </span>
+                <span className="text-sm">{tag}</span>
               </label>
             ))}
           </div>
@@ -298,7 +349,7 @@ Code blocks
             name="tags"
             value={formData.tags}
             onChange={handleChange}
-            className="w-full px-4 py-1 input_box2"
+            className="w-full px-4 py-1 input_box"
             placeholder="javascript, nextjs, tutorial (comma-separated)"
           />
           <p className="text_label_comment mt-1">Separate tags with commas</p>

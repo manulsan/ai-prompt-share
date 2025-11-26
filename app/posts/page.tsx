@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { Pencil, Trash2, PenSquare } from "lucide-react";
+import { Pencil, Trash2, PenSquare, X } from "lucide-react";
 import { useSession } from "next-auth/react";
 import PostStatusBadge from "@/app/components/PostStatusBadge";
 import PagePagination from "@/app/components/PagePagination";
@@ -30,6 +30,9 @@ export default function PostsPage() {
   const [totalPages, setTotalPages] = useState(1);
   const [total, setTotal] = useState(0);
   const [userId, setUserId] = useState<string | null>(null);
+  const [filterAuthorEmail, setFilterAuthorEmail] = useState<string | null>(
+    null
+  );
   const limit = 10;
   const { getContainerClass } = useResponsiveContainer();
 
@@ -43,7 +46,7 @@ export default function PostsPage() {
     if (userId !== null) {
       fetchPosts();
     }
-  }, [page, userId]);
+  }, [page, userId, filterAuthorEmail]);
 
   const fetchUserId = async () => {
     try {
@@ -59,9 +62,15 @@ export default function PostsPage() {
   const fetchPosts = async () => {
     try {
       setIsLoading(true);
-      const url = userId
-        ? `/api/posts?page=${page}&limit=${limit}&userId=${userId}`
-        : `/api/posts?page=${page}&limit=${limit}`;
+      let url = `/api/posts?page=${page}&limit=${limit}`;
+
+      if (filterAuthorEmail) {
+        url += `&authorEmail=${encodeURIComponent(filterAuthorEmail)}`;
+      } else if (userId) {
+        url += `&userId=${userId}`;
+      }
+
+      console.log("Fetching posts with URL:", url);
       const response = await fetch(url);
       const data = await response.json();
 
@@ -69,6 +78,7 @@ export default function PostsPage() {
         throw new Error(data.error || "Failed to fetch posts");
       }
 
+      console.log("Fetched posts:", data.posts.length);
       setPosts(data.posts);
       setTotalPages(data.pagination.totalPages);
       setTotal(data.pagination.total);
@@ -78,6 +88,27 @@ export default function PostsPage() {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleAuthorClick = (email: string) => {
+    console.log("Author clicked:", email);
+    console.log("Current filterAuthorEmail:", filterAuthorEmail);
+
+    if (filterAuthorEmail === email) {
+      // If clicking the same author, clear filter
+      console.log("Clearing filter");
+      setFilterAuthorEmail(null);
+    } else {
+      // Filter by author
+      console.log("Setting filter to:", email);
+      setFilterAuthorEmail(email);
+    }
+    setPage(1); // Reset to first page
+  };
+
+  const clearAuthorFilter = () => {
+    setFilterAuthorEmail(null);
+    setPage(1);
   };
 
   const handleDelete = async (postId: string, title: string) => {
@@ -122,7 +153,21 @@ export default function PostsPage() {
   return (
     <div className={getContainerClass()}>
       <div className="flex justify-between items-center mb-8 ">
-        <h1 className="text-3xl font-bold">Posts</h1>
+        <div>
+          <h1 className="text-3xl font-bold">Posts</h1>
+          {filterAuthorEmail && (
+            <div className="mt-2 flex items-center gap-2">
+              <span className="text-sm text-gray-400">Filtered by author:</span>
+              <button
+                onClick={clearAuthorFilter}
+                className="text-sm bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded-md flex items-center gap-2"
+              >
+                {posts[0]?.author.name || filterAuthorEmail}
+                <X className="w-3 h-3" />
+              </button>
+            </div>
+          )}
+        </div>
         <Link
           href="/posts/new"
           className="px-4 py-1   text-sm font-semibold rounded-lg hover:bg-gray-800 flex items-center gap-2"
@@ -168,7 +213,13 @@ export default function PostsPage() {
                       <div className="text-sm font-medium">/{post.slug}</div>
                     </td>
                     <td className="px-6 py-4">
-                      <div className="text-sm ">{post.author.name}</div>
+                      <button
+                        onClick={() => handleAuthorClick(post.author.email)}
+                        className="text-sm text-blue-400 hover:text-blue-200 hover:underline cursor-pointer transition-colors duration-200 font-medium"
+                        title="Click to filter by this author"
+                      >
+                        {post.author.name}
+                      </button>
                     </td>
                     <td className="px-6 py-4">
                       <PostStatusBadge published={post.published} />
@@ -221,7 +272,13 @@ export default function PostsPage() {
                 <div className="space-y-2 mb-3 text-sm">
                   <div className="flex justify-between items-center">
                     <span className="text-white/60">Author:</span>
-                    <span className="text-white">{post.author.name}</span>
+                    <button
+                      onClick={() => handleAuthorClick(post.author.email)}
+                      className="text-blue-400 hover:text-blue-200 hover:underline cursor-pointer transition-colors duration-200 font-medium"
+                      title="Click to filter by this author"
+                    >
+                      {post.author.name}
+                    </button>
                   </div>
                   <div className="flex justify-between items-center">
                     <div className="flex items-center gap-2">

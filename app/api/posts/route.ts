@@ -10,6 +10,7 @@ export async function GET(req: NextRequest) {
     const { searchParams } = new URL(req.url);
     const search = searchParams.get("search") || "";
     const userId = searchParams.get("userId") || "";
+    const authorEmail = searchParams.get("authorEmail") || "";
     const page = parseInt(searchParams.get("page") || "1");
     const limit = parseInt(searchParams.get("limit") || "10");
     const skip = (page - 1) * limit;
@@ -20,6 +21,26 @@ export async function GET(req: NextRequest) {
     // Filter by userId if provided
     if (userId) {
       query.author = userId;
+    }
+
+    // Filter by author email if provided (takes precedence over userId)
+    if (authorEmail) {
+      const User = (await import("@/models/User")).default;
+      const author = await User.findOne({ email: authorEmail });
+      if (author) {
+        query.author = author._id;
+      } else {
+        // If author not found, return empty results
+        return NextResponse.json({
+          posts: [],
+          pagination: {
+            page,
+            limit,
+            total: 0,
+            totalPages: 0,
+          },
+        });
+      }
     }
 
     if (search) {

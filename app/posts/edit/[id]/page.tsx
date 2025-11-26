@@ -23,6 +23,19 @@ export default function EditPostPage() {
     tags: "",
     published: false,
   });
+  const [isSlugManuallyEdited, setIsSlugManuallyEdited] = useState(false);
+  const [originalSlug, setOriginalSlug] = useState("");
+
+  // Function to generate slug from title
+  const generateSlug = (title: string) => {
+    return title
+      .toLowerCase()
+      .trim()
+      .replace(/[^\w\s-]/g, "") // Remove special characters
+      .replace(/\s+/g, "-") // Replace spaces with hyphens
+      .replace(/-+/g, "-") // Replace multiple hyphens with single hyphen
+      .replace(/^-+|-+$/g, ""); // Remove leading/trailing hyphens
+  };
 
   useEffect(() => {
     if (status === "unauthenticated") {
@@ -45,10 +58,12 @@ export default function EditPostPage() {
       }
 
       const post = data.post;
+      const postSlug = post.slug;
+      setOriginalSlug(postSlug);
       setFormData({
         title: post.title,
         content: post.content,
-        slug: post.slug,
+        slug: postSlug,
         tags: post.tags.join(", "),
         published: post.published,
       });
@@ -64,11 +79,30 @@ export default function EditPostPage() {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value, type } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]:
-        type === "checkbox" ? (e.target as HTMLInputElement).checked : value,
-    }));
+
+    // Auto-generate slug from title if slug hasn't been manually edited
+    if (name === "title" && !isSlugManuallyEdited) {
+      setFormData((prev) => ({
+        ...prev,
+        title: value,
+        slug: generateSlug(value),
+      }));
+    } else if (name === "slug") {
+      // Mark slug as manually edited when user changes it from original
+      if (value !== originalSlug) {
+        setIsSlugManuallyEdited(true);
+      }
+      setFormData((prev) => ({
+        ...prev,
+        slug: value,
+      }));
+    } else {
+      setFormData((prev) => ({
+        ...prev,
+        [name]:
+          type === "checkbox" ? (e.target as HTMLInputElement).checked : value,
+      }));
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -153,7 +187,10 @@ export default function EditPostPage() {
         {/* Slug */}
         <div>
           <label htmlFor="slug" className="text_label block mb-2">
-            Slug *
+            Slug *{" "}
+            {!isSlugManuallyEdited && (
+              <span className="text-gray-500 text-xs">(auto-generated)</span>
+            )}
           </label>
           <input
             type="text"
@@ -166,7 +203,8 @@ export default function EditPostPage() {
             placeholder="post-url-slug"
           />
           <p className="text_label_comment mt-1">
-            URL-friendly version (e.g., my-first-post)
+            URL-friendly version. Auto-generated from title, but you can edit
+            it.
           </p>
         </div>
 
@@ -189,7 +227,7 @@ export default function EditPostPage() {
           </div>
 
           {showPreview ? (
-            <div className="w-full min-h-[300px] px-4 py-2 border border-gray-300 rounded-lg bg-gray-50 prose prose-sm max-w-none">
+            <div className="w-full min-h-[300px] px-4 py-2 border border-gray-300 rounded-lg prose prose-sm max-w-none">
               <ReactMarkdown
                 remarkPlugins={[remarkGfm]}
                 components={{
@@ -286,10 +324,7 @@ export default function EditPostPage() {
             onChange={handleChange}
             className="w-4 h-4 text-black border-gray-300 rounded focus:ring-black"
           />
-          <label
-            htmlFor="published"
-            className="ml-2 text-sm font-medium text-gray-700"
-          >
+          <label htmlFor="published" className="ml-2 text_label_comment2">
             Published
           </label>
         </div>

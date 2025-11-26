@@ -102,7 +102,7 @@ export async function PUT(
     );
   }
 }
-
+// 69238bf9a81ec4aaa344243b
 export async function DELETE(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
@@ -129,6 +129,9 @@ export async function DELETE(
     if (!user) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
+
+    console.log("Current user ID:", user._id);
+    console.log("Post author ID:", post.author);
 
     // Check ownership
     if (post.author.toString() !== user._id.toString()) {
