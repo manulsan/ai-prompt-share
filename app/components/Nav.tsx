@@ -13,6 +13,7 @@ import {
   LayoutDashboard,
   LogOut,
 } from "lucide-react";
+import NotificationBell from "./NotificationBell";
 
 const Nav = () => {
   const { data: session, status } = useSession();
@@ -101,51 +102,57 @@ const Nav = () => {
               Loading...
             </div>
           ) : session ? (
-            <div className="relative">
-              <button
-                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                className="flex items-center gap-2 focus:outline-none"
-                aria-label="User profile menu"
-                aria-expanded={isDropdownOpen}
-              >
-                {session.user?.image ? (
-                  <Image
-                    src={session.user.image}
-                    alt={session.user.name || "User"}
-                    width={32}
-                    height={32}
-                    className="rounded-full object-cover border-2 border-white/20 hover:border-white/40 transition"
-                  />
-                ) : (
-                  <div className="w-8 h-8 rounded-full bg-white/10 text-white flex items-center justify-center text-sm font-semibold hover:bg-white/20 transition border-2 border-white/20">
-                    {session.user?.name?.charAt(0).toUpperCase() || "U"}
+            <>
+              {/* Notification Bell */}
+              <NotificationBell />
+
+              {/* User Profile Dropdown */}
+              <div className="relative">
+                <button
+                  onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                  className="flex items-center gap-2 focus:outline-none"
+                  aria-label="User profile menu"
+                  aria-expanded={isDropdownOpen}
+                >
+                  {session.user?.image ? (
+                    <Image
+                      src={session.user.image}
+                      alt={session.user.name || "User"}
+                      width={32}
+                      height={32}
+                      className="rounded-full object-cover border-2 border-white/20 hover:border-white/40 transition"
+                    />
+                  ) : (
+                    <div className="w-8 h-8 rounded-full bg-white/10 text-white flex items-center justify-center text-sm font-semibold hover:bg-white/20 transition border-2 border-white/20">
+                      {session.user?.name?.charAt(0).toUpperCase() || "U"}
+                    </div>
+                  )}
+                </button>
+
+                {isDropdownOpen && (
+                  <div className="absolute right-0 mt-2 w-48 bg-linear-to-br from-[#0d1117] to-[#161b22] rounded-md shadow-xl border border-[#30363d] py-1 z-50">
+                    <div className="px-4 py-3 border-b border-[#30363d]">
+                      <p className="text-sm font-semibold text-white">
+                        {session.user?.name || "User"}
+                      </p>
+                      <p className="text-xs text-gray-400">
+                        {session.user?.email}
+                      </p>
+                    </div>
+                    <button
+                      onClick={() => {
+                        setIsDropdownOpen(false);
+                        signOut();
+                      }}
+                      className="w-full text-left px-4 py-2 text-sm text-red-400 hover:bg-red-500/10 hover:text-red-300 transition flex items-center gap-2"
+                    >
+                      <LogOut className="w-4 h-4" />
+                      Sign Out
+                    </button>
                   </div>
                 )}
-              </button>
-
-              {isDropdownOpen && (
-                <div className="absolute right-0 mt-2 w-48 bg-linear-to-br from-[#0d1117] to-[#161b22] rounded-md shadow-xl border border-[#30363d] py-1 z-50">
-                  <div className="px-4 py-3 border-b border-[#30363d]">
-                    <p className="text-sm font-semibold text-white">
-                      {session.user?.name || "User"}
-                    </p>
-                    <p className="text-xs text-gray-400">
-                      {session.user?.email}
-                    </p>
-                  </div>
-                  <button
-                    onClick={() => {
-                      setIsDropdownOpen(false);
-                      signOut();
-                    }}
-                    className="w-full text-left px-4 py-2 text-sm text-red-400 hover:bg-red-500/10 hover:text-red-300 transition flex items-center gap-2"
-                  >
-                    <LogOut className="w-4 h-4" />
-                    Sign Out
-                  </button>
-                </div>
-              )}
-            </div>
+              </div>
+            </>
           ) : (
             <button
               onClick={() => signIn("google")}

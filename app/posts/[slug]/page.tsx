@@ -6,6 +6,7 @@ import { ArrowLeft, Calendar, User, Copy, Home, FileText } from "lucide-react";
 import PostStatusBadge from "@/app/components/PostStatusBadge";
 import HashTags from "@/app/components/HashTags";
 import ButtonHome from "@/app/components/ButtonHome";
+import Comments from "@/app/components/Comments";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
@@ -247,6 +248,9 @@ export default function PostDetailPage() {
           <ButtonHome />
         </div>
       </footer>
+
+      {/* Comments Section */}
+      <Comments postId={post._id} postAuthorEmail={post.author.email} />
     </article>
   );
 }
