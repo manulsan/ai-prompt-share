@@ -14,6 +14,9 @@ export default function NewPostPage() {
   const { getContainerClass } = useResponsiveContainer();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
+  const [contentType, setContentType] = useState<"markdown" | "json">(
+    "markdown"
+  );
   const [formData, setFormData] = useState({
     title: "",
     content: "",
@@ -121,7 +124,10 @@ export default function NewPostPage() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          contentType,
+        }),
       });
 
       const data = await response.json();
@@ -187,12 +193,36 @@ export default function NewPostPage() {
         {/* Content */}
         <div>
           <div className="flex items-center justify-between mb-2">
-            <label htmlFor="content" className="block text_label">
-              Content *{" "}
-              <span className="text-gray-500 font-normal">
-                (Markdown supported)
-              </span>
-            </label>
+            <div className="flex items-center gap-4">
+              <label htmlFor="content" className="block text_label">
+                Content *
+              </label>
+              {/* Content Type Selection */}
+              <div className="flex items-center gap-2">
+                <label className="flex items-center gap-1 cursor-pointer">
+                  <input
+                    type="radio"
+                    name="contentType"
+                    value="markdown"
+                    checked={contentType === "markdown"}
+                    onChange={(e) => setContentType("markdown")}
+                    className="w-3 h-3"
+                  />
+                  <span className="text-sm">Markdown</span>
+                </label>
+                <label className="flex items-center gap-1 cursor-pointer">
+                  <input
+                    type="radio"
+                    name="contentType"
+                    value="json"
+                    checked={contentType === "json"}
+                    onChange={(e) => setContentType("json")}
+                    className="w-3 h-3"
+                  />
+                  <span className="text-sm">JSON</span>
+                </label>
+              </div>
+            </div>
             <button
               type="button"
               onClick={() => setShowPreview(!showPreview)}
@@ -214,57 +244,77 @@ export default function NewPostPage() {
 
           {showPreview ? (
             <div className="w-full min-h-[300px] px-4 input_box">
-              <ReactMarkdown
-                remarkPlugins={[remarkGfm]}
-                components={{
-                  h1: ({ node, ...props }) => (
-                    <h1 className="text-2xl font-bold mt-4 mb-2" {...props} />
-                  ),
-                  h2: ({ node, ...props }) => (
-                    <h2 className="text-xl font-bold mt-3 mb-2" {...props} />
-                  ),
-                  h3: ({ node, ...props }) => (
-                    <h3 className="text-lg font-bold mt-2 mb-1" {...props} />
-                  ),
-                  p: ({ node, ...props }) => <p className="mb-3" {...props} />,
-                  code: ({ node, inline, ...props }: any) =>
-                    inline ? (
-                      <code
-                        className="bg-gray-200 px-1 py-0.5 rounded text-sm text-red-600"
-                        {...props}
-                      />
-                    ) : (
-                      <code
-                        className="block bg-gray-900 text-white p-3 rounded my-2 overflow-x-auto text-sm"
+              {contentType === "markdown" ? (
+                <ReactMarkdown
+                  remarkPlugins={[remarkGfm]}
+                  components={{
+                    h1: ({ node, ...props }) => (
+                      <h1 className="text-2xl font-bold mt-4 mb-2" {...props} />
+                    ),
+                    h2: ({ node, ...props }) => (
+                      <h2 className="text-xl font-bold mt-3 mb-2" {...props} />
+                    ),
+                    h3: ({ node, ...props }) => (
+                      <h3 className="text-lg font-bold mt-2 mb-1" {...props} />
+                    ),
+                    p: ({ node, ...props }) => (
+                      <p className="mb-3" {...props} />
+                    ),
+                    code: ({ node, inline, ...props }: any) =>
+                      inline ? (
+                        <code
+                          className="bg-gray-200 px-1 py-0.5 rounded text-sm text-red-600"
+                          {...props}
+                        />
+                      ) : (
+                        <code
+                          className="block bg-gray-900 text-white p-3 rounded my-2 overflow-x-auto text-sm"
+                          {...props}
+                        />
+                      ),
+                    ul: ({ node, ...props }) => (
+                      <ul
+                        className="list-disc list-inside mb-3 ml-2"
                         {...props}
                       />
                     ),
-                  ul: ({ node, ...props }) => (
-                    <ul
-                      className="list-disc list-inside mb-3 ml-2"
-                      {...props}
-                    />
-                  ),
-                  ol: ({ node, ...props }) => (
-                    <ol
-                      className="list-decimal list-inside mb-3 ml-2"
-                      {...props}
-                    />
-                  ),
-                  blockquote: ({ node, ...props }) => (
-                    <blockquote
-                      className="border-l-4 border-blue-500 pl-3 italic my-3 text-gray-700"
-                      {...props}
-                    />
-                  ),
-                  a: ({ node, ...props }) => (
-                    <a className="text-blue-600 hover:underline" {...props} />
-                  ),
-                }}
-              >
-                {formData.content ||
-                  "*No content yet. Start writing to see preview...*"}
-              </ReactMarkdown>
+                    ol: ({ node, ...props }) => (
+                      <ol
+                        className="list-decimal list-inside mb-3 ml-2"
+                        {...props}
+                      />
+                    ),
+                    blockquote: ({ node, ...props }) => (
+                      <blockquote
+                        className="border-l-4 border-blue-500 pl-3 italic my-3 text-gray-700"
+                        {...props}
+                      />
+                    ),
+                    a: ({ node, ...props }) => (
+                      <a className="text-blue-600 hover:underline" {...props} />
+                    ),
+                  }}
+                >
+                  {formData.content ||
+                    "*No content yet. Start writing to see preview...*"}
+                </ReactMarkdown>
+              ) : (
+                <pre className="text-sm text-gray-300 whitespace-pre-wrap wrap-break-word">
+                  {formData.content
+                    ? (() => {
+                        try {
+                          return JSON.stringify(
+                            JSON.parse(formData.content),
+                            null,
+                            2
+                          );
+                        } catch (e) {
+                          return "Invalid JSON format";
+                        }
+                      })()
+                    : "No JSON content yet..."}
+                </pre>
+              )}
             </div>
           ) : (
             <textarea
@@ -275,24 +325,36 @@ export default function NewPostPage() {
               onChange={handleChange}
               rows={12}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent resize-y font-mono text-sm"
-              placeholder="# Your Post Title
+              placeholder={
+                contentType === "markdown"
+                  ? `# Your Post Title
 
 Write your post content here using Markdown...
 
 ## Examples:
-**Bold text**, *italic text*, `code`, [links](https://example.com)
+**Bold text**, *italic text*, \`code\`, [links](https://example.com)
 
 - Bullet points
 - Another point
 
-```
+\`\`\`
 Code blocks
-```"
+\`\`\``
+                  : `{
+  "title": "Your JSON Data",
+  "description": "Enter valid JSON here",
+  "items": [
+    "item1",
+    "item2"
+  ]
+}`
+              }
             />
           )}
           <p className="text_label_comment mt-1">
-            Supports Markdown: **bold**, *italic*, `code`, lists, links, images,
-            etc.
+            {contentType === "markdown"
+              ? "Supports Markdown: **bold**, *italic*, `code`, lists, links, images, etc."
+              : "Enter valid JSON format. Preview will format it automatically."}
           </p>
         </div>
         {/* Tags */}
@@ -324,6 +386,7 @@ Code blocks
               "Jest",
               "AI",
               "State",
+              "JSON",
               "Business",
               "Strategy",
               "Marketing",

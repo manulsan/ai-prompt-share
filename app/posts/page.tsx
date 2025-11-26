@@ -168,10 +168,7 @@ export default function PostsPage() {
             </div>
           )}
         </div>
-        <Link
-          href="/posts/new"
-          className="px-4 py-1   text-sm font-semibold rounded-lg hover:bg-gray-800 flex items-center gap-2"
-        >
+        <Link href="/posts/new" className="btn_v1">
           <PenSquare className="w-4 h-4" />
           New Post
         </Link>
@@ -326,12 +323,12 @@ export default function PostsPage() {
       />
 
       {/* Results info */}
-      {total > 0 && (
+      {/* {total > 0 && (
         <p className="text-center text-sm mt-4">
-          Showing {(page - 1) * limit + 1} to {Math.min(page * limit, total)} of{" "}
-          {total} posts
+          {(page - 1) * limit + 1} to {Math.min(page * limit, total)} of {total}{" "}
+          posts
         </p>
-      )}
+      )} */}
     </div>
   );
 }

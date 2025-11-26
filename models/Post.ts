@@ -10,6 +10,11 @@ const PostSchema = new Schema(
       type: String,
       required: [true, "Content is required"],
     },
+    contentType: {
+      type: String,
+      enum: ["markdown", "json"],
+      default: "markdown",
+    },
     author: {
       type: Schema.Types.ObjectId,
       ref: "User",

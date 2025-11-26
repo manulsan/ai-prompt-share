@@ -12,10 +12,33 @@ import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 import { useResponsiveContainer } from "@/app/hooks/useResponsiveContainer";
 
+// JSON syntax highlighting component
+const JSONViewer = ({ content }: { content: string }) => {
+  try {
+    // Validate it's valid JSON
+    JSON.parse(content);
+
+    // Simple approach: just display the already-formatted JSON
+    return (
+      <pre className="bg-[#1e1e1e] text-[#d4d4d4] p-6 rounded-lg overflow-x-auto text-sm my-4 font-mono whitespace-pre-wrap">
+        {content}
+      </pre>
+    );
+  } catch (e) {
+    console.error("JSON parse error:", e);
+    return (
+      <pre className="bg-[#1e1e1e] text-[#d4d4d4] p-6 rounded-lg overflow-x-auto text-sm my-4 font-mono whitespace-pre-wrap">
+        {content}
+      </pre>
+    );
+  }
+};
+
 interface Post {
   _id: string;
   title: string;
   content: string;
+  contentType?: "markdown" | "json";
   slug: string;
   author: {
     name: string;
@@ -95,6 +118,13 @@ export default function PostDetailPage() {
     );
   }
 
+  console.log("post.content:", post.content);
+  console.log("post.contentType:", post.contentType);
+  console.log("Is JSON?", post.contentType === "json");
+
+  // Default to markdown if contentType is undefined
+  const contentType = post.contentType || "markdown";
+
   return (
     <article className={getContainerClass()}>
       {/* Post Header */}
@@ -161,79 +191,86 @@ export default function PostDetailPage() {
           className=" rounded-lg shadow-sm border border-gray-400 px-6 markdown-content"
           style={{ minHeight: "250px" }}
         >
-          <ReactMarkdown
-            remarkPlugins={[remarkGfm]}
-            rehypePlugins={[rehypeRaw]}
-            components={{
-              h1: ({ node, ...props }) => (
-                <h1 className="text-3xl font-bold mt-6 mb-4" {...props} />
-              ),
-              h2: ({ node, ...props }) => (
-                <h2 className="text-2xl font-bold mt-5 mb-3" {...props} />
-              ),
-              h3: ({ node, ...props }) => (
-                <h3 className="text-xl font-bold mt-4 mb-2" {...props} />
-              ),
-              p: ({ node, ...props }) => (
-                <p className="mb-4 leading-7" {...props} />
-              ),
-              ul: ({ node, ...props }) => (
-                <ul className="list-disc list-inside mb-4 ml-4" {...props} />
-              ),
-              ol: ({ node, ...props }) => (
-                <ol className="list-decimal list-inside mb-4 ml-4" {...props} />
-              ),
-              li: ({ node, ...props }) => <li className="mb-2" {...props} />,
-              blockquote: ({ node, ...props }) => (
-                <blockquote
-                  className="border-l-4 border-blue-500 pl-4 italic my-4 text-gray-700"
-                  {...props}
-                />
-              ),
-              code: ({ node, inline, ...props }: any) =>
-                inline ? (
-                  <code
-                    className="bg-gray-100 px-2 py-1 rounded text-sm text-red-600"
-                    {...props}
-                  />
-                ) : (
-                  <code
-                    className="block bg-gray-900 text-white p-4 rounded-lg my-4 overflow-x-auto"
+          {contentType === "json" ? (
+            <JSONViewer content={post.content} />
+          ) : (
+            <ReactMarkdown
+              remarkPlugins={[remarkGfm]}
+              rehypePlugins={[rehypeRaw]}
+              components={{
+                h1: ({ node, ...props }) => (
+                  <h1 className="text-3xl font-bold mt-6 mb-4" {...props} />
+                ),
+                h2: ({ node, ...props }) => (
+                  <h2 className="text-2xl font-bold mt-5 mb-3" {...props} />
+                ),
+                h3: ({ node, ...props }) => (
+                  <h3 className="text-xl font-bold mt-4 mb-2" {...props} />
+                ),
+                p: ({ node, ...props }) => (
+                  <p className="mb-4 leading-7" {...props} />
+                ),
+                ul: ({ node, ...props }) => (
+                  <ul className="list-disc list-inside mb-4 ml-4" {...props} />
+                ),
+                ol: ({ node, ...props }) => (
+                  <ol
+                    className="list-decimal list-inside mb-4 ml-4"
                     {...props}
                   />
                 ),
-              a: ({ node, ...props }) => (
-                <a
-                  className="text-blue-600 hover:underline"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  {...props}
-                />
-              ),
-              img: ({ node, ...props }) => (
-                <img className="rounded-lg my-4 max-w-full" {...props} />
-              ),
-              table: ({ node, ...props }) => (
-                <div className="overflow-x-auto my-4">
-                  <table
-                    className="min-w-full divide-y divide-gray-200 border"
+                li: ({ node, ...props }) => <li className="mb-2" {...props} />,
+                blockquote: ({ node, ...props }) => (
+                  <blockquote
+                    className="border-l-4 border-blue-500 pl-4 italic my-4 text-gray-700"
                     {...props}
                   />
-                </div>
-              ),
-              th: ({ node, ...props }) => (
-                <th
-                  className="px-4 py-2 bg-gray-100 font-semibold text-left"
-                  {...props}
-                />
-              ),
-              td: ({ node, ...props }) => (
-                <td className="px-4 py-2 border-t" {...props} />
-              ),
-            }}
-          >
-            {post.content}
-          </ReactMarkdown>
+                ),
+                code: ({ node, inline, ...props }: any) =>
+                  inline ? (
+                    <code
+                      className="bg-gray-100 px-2 py-1 rounded text-sm text-red-600"
+                      {...props}
+                    />
+                  ) : (
+                    <code
+                      className="block bg-gray-900 text-white p-4 rounded-lg my-4 overflow-x-auto"
+                      {...props}
+                    />
+                  ),
+                a: ({ node, ...props }) => (
+                  <a
+                    className="text-blue-600 hover:underline"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    {...props}
+                  />
+                ),
+                img: ({ node, ...props }) => (
+                  <img className="rounded-lg my-4 max-w-full" {...props} />
+                ),
+                table: ({ node, ...props }) => (
+                  <div className="overflow-x-auto my-4">
+                    <table
+                      className="min-w-full divide-y divide-gray-200 border"
+                      {...props}
+                    />
+                  </div>
+                ),
+                th: ({ node, ...props }) => (
+                  <th
+                    className="px-4 py-2 bg-gray-100 font-semibold text-left"
+                    {...props}
+                  />
+                ),
+                td: ({ node, ...props }) => (
+                  <td className="px-4 py-2 border-t" {...props} />
+                ),
+              }}
+            >
+              {post.content}
+            </ReactMarkdown>
+          )}
         </div>
         {/* Tags */}
         <HashTags tags={post.tags} />

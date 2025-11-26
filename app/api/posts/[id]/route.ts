@@ -57,7 +57,7 @@ export async function PUT(
       );
     }
     const body = await req.json();
-    const { title, content, slug, tags, published } = body;
+    const { title, content, contentType, slug, tags, published } = body;
 
     // Parse tags
     const tagsArray = tags
@@ -70,6 +70,7 @@ export async function PUT(
     // Update post
     post.title = title || post.title;
     post.content = content || post.content;
+    post.contentType = contentType || post.contentType || "markdown";
     post.slug = slug || post.slug;
     post.tags = tagsArray;
     post.published = published !== undefined ? published : post.published;

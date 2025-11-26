@@ -113,7 +113,7 @@ export async function POST(req: NextRequest) {
     await connectDB();
 
     const body = await req.json();
-    const { title, content, slug, tags, published } = body;
+    const { title, content, contentType, slug, tags, published } = body;
 
     // Validate required fields
     if (!title || !content || !slug) {
@@ -143,6 +143,7 @@ export async function POST(req: NextRequest) {
     const newPost = await Post.create({
       title,
       content,
+      contentType: contentType || "markdown", // Add contentType field
       slug,
       tags: tagsArray,
       published,
