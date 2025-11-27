@@ -154,7 +154,8 @@ const YoutubePage = () => {
                     e.target.value ? new Date(e.target.value).toISOString() : ""
                   );
                 }}
-                className="input_box flex-1"
+                className="input_box flex-1 relative z-50"
+                style={{ colorScheme: "dark" }}
               />
             </div>
 

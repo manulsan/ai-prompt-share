@@ -64,9 +64,7 @@ export default function Home() {
             Welcome to AI Prompt Share
           </h1>
           <p className="text-xl md:text-2xl text-amber-400 mb-8 max-w-3xl mx-auto">
-            Discover, share, and master the art of AI prompting. Connect with a
-            community of AI enthusiasts and learn effective prompting
-            techniques.
+            Discover great prompts. Share your ideas. Grow together.
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
             <Link
@@ -88,29 +86,44 @@ export default function Home() {
       {/* Features Section */}
       <section className="max-w-6xl mx-auto px-4 py-12">
         <div className="grid md:grid-cols-3 gap-8">
-          <div className="bg-gradient-to-br from-blue-900/20 to-purple-900/20 p-6 rounded-lg border border-blue-800/30">
-            <Sparkles className="w-12 h-12 text-blue-400 mb-4" />
-            <h3 className="text-xl font-bold mb-2">Discover Prompts</h3>
+          <Link
+            href="/explore"
+            className="bg-gradient-to-br from-blue-900/20 to-purple-900/20 p-6 rounded-lg border border-blue-800/30 hover:border-blue-600 hover:shadow-lg hover:shadow-blue-600/10 transition-all group"
+          >
+            <Sparkles className="w-12 h-12 text-blue-400 mb-4 group-hover:scale-110 transition-transform" />
+            <h3 className="text-xl font-bold mb-2 group-hover:text-blue-400 transition">
+              Discover Prompts
+            </h3>
             <p className="text-gray-400">
               Browse a curated collection of effective AI prompts shared by the
               community
             </p>
-          </div>
-          <div className="bg-gradient-to-br from-purple-900/20 to-pink-900/20 p-6 rounded-lg border border-purple-800/30">
-            <BookOpen className="w-12 h-12 text-purple-400 mb-4" />
-            <h3 className="text-xl font-bold mb-2">Learn Techniques</h3>
+          </Link>
+          <Link
+            href="/guides"
+            className="bg-gradient-to-br from-purple-900/20 to-pink-900/20 p-6 rounded-lg border border-purple-800/30 hover:border-purple-600 hover:shadow-lg hover:shadow-purple-600/10 transition-all group"
+          >
+            <BookOpen className="w-12 h-12 text-purple-400 mb-4 group-hover:scale-110 transition-transform" />
+            <h3 className="text-xl font-bold mb-2 group-hover:text-purple-400 transition">
+              Learn Techniques
+            </h3>
             <p className="text-gray-400">
               Master prompting strategies and best practices from experienced
               users
             </p>
-          </div>
-          <div className="bg-gradient-to-br from-pink-900/20 to-red-900/20 p-6 rounded-lg border border-pink-800/30">
-            <Zap className="w-12 h-12 text-pink-400 mb-4" />
-            <h3 className="text-xl font-bold mb-2">Share & Connect</h3>
+          </Link>
+          <Link
+            href="/community"
+            className="bg-gradient-to-br from-pink-900/20 to-red-900/20 p-6 rounded-lg border border-pink-800/30 hover:border-pink-600 hover:shadow-lg hover:shadow-pink-600/10 transition-all group"
+          >
+            <Zap className="w-12 h-12 text-pink-400 mb-4 group-hover:scale-110 transition-transform" />
+            <h3 className="text-xl font-bold mb-2 group-hover:text-pink-400 transition">
+              Share & Connect
+            </h3>
             <p className="text-gray-400">
               Contribute your own prompts and connect with fellow AI enthusiasts
             </p>
-          </div>
+          </Link>
         </div>
       </section>
 
@@ -126,74 +139,147 @@ export default function Home() {
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div className="bg-[#0d1117] border border-[#30363d] rounded-lg p-6 hover:border-blue-600/50 transition">
+          <Link
+            href="/guides/be-specific"
+            className="bg-[#0d1117] border border-[#30363d] rounded-lg p-6 hover:border-blue-600 hover:shadow-lg hover:shadow-blue-600/10 transition-all group"
+          >
             <div className="flex items-center gap-3 mb-4">
-              <Target className="w-8 h-8 text-blue-400" />
-              <h3 className="text-lg font-semibold">Be Specific</h3>
+              <Target className="w-8 h-8 text-blue-400 group-hover:scale-110 transition-transform" />
+              <h3 className="text-lg font-semibold group-hover:text-blue-400 transition">
+                Be Specific
+              </h3>
             </div>
-            <p className="text-gray-400 text-sm">
-              Provide clear, detailed instructions. Instead of "write about
-              dogs," try "write a 500-word article about golden retriever
-              training tips for puppies."
+            <p className="text-gray-400 text-sm mb-3">
+              Vague prompts lead to vague results. Provide clear, detailed
+              instructions about what you want.
             </p>
-          </div>
-
-          <div className="bg-[#0d1117] border border-[#30363d] rounded-lg p-6 hover:border-purple-600/50 transition">
-            <div className="flex items-center gap-3 mb-4">
-              <Lightbulb className="w-8 h-8 text-purple-400" />
-              <h3 className="text-lg font-semibold">Provide Context</h3>
+            <div className="bg-[#161b22] border border-[#30363d] rounded p-3 text-xs">
+              <p className="text-red-400 mb-2">❌ "Write about dogs"</p>
+              <p className="text-green-400">
+                ✅ "Write a 500-word article about golden retriever training
+                tips for puppies under 6 months old"
+              </p>
             </div>
-            <p className="text-gray-400 text-sm">
-              Give background information and explain your goals. This helps the
-              AI understand your needs and provide more relevant responses.
+          </Link>
+
+          <Link
+            href="/guides/provide-context"
+            className="bg-[#0d1117] border border-[#30363d] rounded-lg p-6 hover:border-purple-600 hover:shadow-lg hover:shadow-purple-600/10 transition-all group"
+          >
+            <div className="flex items-center gap-3 mb-4">
+              <Lightbulb className="w-8 h-8 text-purple-400 group-hover:scale-110 transition-transform" />
+              <h3 className="text-lg font-semibold group-hover:text-purple-400 transition">
+                Provide Context
+              </h3>
+            </div>
+            <p className="text-gray-400 text-sm mb-3">
+              Give background information and explain your goals. Context helps
+              AI understand your needs better.
             </p>
-          </div>
-
-          <div className="bg-[#0d1117] border border-[#30363d] rounded-lg p-6 hover:border-green-600/50 transition">
-            <div className="flex items-center gap-3 mb-4">
-              <Bot className="w-8 h-8 text-green-400" />
-              <h3 className="text-lg font-semibold">Iterate & Refine</h3>
+            <div className="bg-[#161b22] border border-[#30363d] rounded p-3 text-xs">
+              <p className="text-blue-300">
+                ✅ "I'm a high school teacher preparing a lesson on
+                photosynthesis. Create a 10-question quiz for 9th graders."
+              </p>
             </div>
-            <p className="text-gray-400 text-sm">
-              Don't settle for the first response. Ask follow-up questions,
-              request modifications, and refine the output until it meets your
-              needs.
+          </Link>
+
+          <Link
+            href="/guides/iterate-refine"
+            className="bg-[#0d1117] border border-[#30363d] rounded-lg p-6 hover:border-green-600 hover:shadow-lg hover:shadow-green-600/10 transition-all group"
+          >
+            <div className="flex items-center gap-3 mb-4">
+              <Bot className="w-8 h-8 text-green-400 group-hover:scale-110 transition-transform" />
+              <h3 className="text-lg font-semibold group-hover:text-green-400 transition">
+                Iterate & Refine
+              </h3>
+            </div>
+            <p className="text-gray-400 text-sm mb-3">
+              Don't settle for the first response. Build on it with follow-up
+              questions and refinements.
             </p>
-          </div>
-
-          <div className="bg-[#0d1117] border border-[#30363d] rounded-lg p-6 hover:border-yellow-600/50 transition">
-            <div className="flex items-center gap-3 mb-4">
-              <span className="text-3xl">🎭</span>
-              <h3 className="text-lg font-semibold">Use Role-Playing</h3>
+            <div className="bg-[#161b22] border border-[#30363d] rounded p-3 text-xs">
+              <p className="text-blue-300 mb-1">
+                1st: "Write a tagline for a fitness app"
+              </p>
+              <p className="text-gray-500 mb-1">→ Response received</p>
+              <p className="text-blue-300">
+                2nd: "Make it more energetic and target young adults"
+              </p>
             </div>
-            <p className="text-gray-400 text-sm">
-              Ask the AI to adopt a specific role: "Act as a professional
-              editor" or "You are an expert developer" to get specialized
+          </Link>
+
+          <Link
+            href="/guides/role-playing"
+            className="bg-[#0d1117] border border-[#30363d] rounded-lg p-6 hover:border-yellow-600 hover:shadow-lg hover:shadow-yellow-600/10 transition-all group"
+          >
+            <div className="flex items-center gap-3 mb-4">
+              <span className="text-3xl group-hover:scale-110 transition-transform inline-block">
+                🎭
+              </span>
+              <h3 className="text-lg font-semibold group-hover:text-yellow-400 transition">
+                Use Role-Playing
+              </h3>
+            </div>
+            <p className="text-gray-400 text-sm mb-3">
+              Ask AI to adopt a specific role or expertise for more specialized
               responses.
             </p>
-          </div>
-
-          <div className="bg-[#0d1117] border border-[#30363d] rounded-lg p-6 hover:border-red-600/50 transition">
-            <div className="flex items-center gap-3 mb-4">
-              <span className="text-3xl">📝</span>
-              <h3 className="text-lg font-semibold">Structure Your Prompt</h3>
+            <div className="bg-[#161b22] border border-[#30363d] rounded p-3 text-xs">
+              <p className="text-blue-300">
+                "Act as an experienced software architect. Review this database
+                schema and suggest improvements..."
+              </p>
             </div>
-            <p className="text-gray-400 text-sm">
-              Break complex requests into sections: Context, Task, Format,
-              Constraints. This makes your intent crystal clear.
-            </p>
-          </div>
+          </Link>
 
-          <div className="bg-[#0d1117] border border-[#30363d] rounded-lg p-6 hover:border-pink-600/50 transition">
+          <Link
+            href="/guides/structure-prompt"
+            className="bg-[#0d1117] border border-[#30363d] rounded-lg p-6 hover:border-red-600 hover:shadow-lg hover:shadow-red-600/10 transition-all group"
+          >
             <div className="flex items-center gap-3 mb-4">
-              <span className="text-3xl">✅</span>
-              <h3 className="text-lg font-semibold">Define Output Format</h3>
+              <span className="text-3xl group-hover:scale-110 transition-transform inline-block">
+                📝
+              </span>
+              <h3 className="text-lg font-semibold group-hover:text-red-400 transition">
+                Structure Your Prompt
+              </h3>
             </div>
-            <p className="text-gray-400 text-sm">
-              Specify how you want the response: bullet points, JSON, markdown,
-              table format, or step-by-step instructions.
+            <p className="text-gray-400 text-sm mb-3">
+              Break complex requests into clear sections. Organized prompts get
+              better results.
             </p>
-          </div>
+            <div className="bg-[#161b22] border border-[#30363d] rounded p-3 text-xs">
+              <p className="text-purple-300">Context: [Background]</p>
+              <p className="text-purple-300">Task: [What you need]</p>
+              <p className="text-purple-300">Format: [How to output]</p>
+              <p className="text-purple-300">Constraints: [Limitations]</p>
+            </div>
+          </Link>
+
+          <Link
+            href="/guides/output-format"
+            className="bg-[#0d1117] border border-[#30363d] rounded-lg p-6 hover:border-pink-600 hover:shadow-lg hover:shadow-pink-600/10 transition-all group"
+          >
+            <div className="flex items-center gap-3 mb-4">
+              <span className="text-3xl group-hover:scale-110 transition-transform inline-block">
+                ✅
+              </span>
+              <h3 className="text-lg font-semibold group-hover:text-pink-400 transition">
+                Define Output Format
+              </h3>
+            </div>
+            <p className="text-gray-400 text-sm mb-3">
+              Specify exactly how you want the response structured for
+              consistent results.
+            </p>
+            <div className="bg-[#161b22] border border-[#30363d] rounded p-3 text-xs">
+              <p className="text-blue-300">
+                "List 5 breakfast ideas. Format as: Name | Prep Time | Calories
+                | Key Ingredients"
+              </p>
+            </div>
+          </Link>
         </div>
       </section>
 
