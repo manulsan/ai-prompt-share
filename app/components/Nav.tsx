@@ -67,24 +67,18 @@ const Nav = () => {
             Home
           </Link>
           <Link
+            href="/explore"
+            className="text-sm font-semibold text-white hover:text-white/80 transition px-2"
+          >
+            Prompts
+          </Link>
+          <Link
             href="/youtube-search"
             className="text-sm font-semibold text-white hover:text-white/80 transition px-2"
           >
             @Youtube
           </Link>
 
-          {session ? (
-            <Link
-              href="/posts"
-              className="text-sm font-semibold text-white hover:text-white/80 transition px-2"
-            >
-              Posts
-            </Link>
-          ) : (
-            <span className="text-sm font-semibold text-gray-400 cursor-not-allowed px-2">
-              Posts
-            </span>
-          )}
           {session?.user?.role === "Admin" ? (
             <Link
               href="/dashboard"
@@ -139,6 +133,14 @@ const Nav = () => {
                         {session.user?.email}
                       </p>
                     </div>
+                    <Link
+                      href="/posts"
+                      onClick={() => setIsDropdownOpen(false)}
+                      className="w-full text-left px-4 py-2 text-sm text-white hover:bg-white/10 transition flex items-center gap-2"
+                    >
+                      <FileText className="w-4 h-4" />
+                      My Posts
+                    </Link>
                     <button
                       onClick={() => {
                         setIsDropdownOpen(false);
@@ -248,6 +250,15 @@ const Nav = () => {
             </Link>
 
             <Link
+              href="/explore"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="flex items-center gap-3 px-3 py-2.5 text-white hover:bg-white/10 rounded-md transition mb-1"
+            >
+              <Sparkles className="w-5 h-5" />
+              <span className="text-sm font-medium">Prompts</span>
+            </Link>
+
+            <Link
               href="/youtube-search"
               onClick={() => setIsMobileMenuOpen(false)}
               className="flex items-center gap-3 px-3 py-2.5 text-white hover:bg-white/10 rounded-md transition mb-1"
@@ -256,20 +267,15 @@ const Nav = () => {
               <span className="text-sm font-medium">YouTube Search</span>
             </Link>
 
-            {session ? (
+            {session && (
               <Link
                 href="/posts"
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="flex items-center gap-3 px-3 py-2.5 text-white hover:bg-white/10 rounded-md transition mb-1"
               >
                 <FileText className="w-5 h-5" />
-                <span className="text-sm font-medium">Posts</span>
+                <span className="text-sm font-medium">My Posts</span>
               </Link>
-            ) : (
-              <div className="flex items-center gap-3 px-3 py-2.5 text-gray-500 cursor-not-allowed mb-1">
-                <FileText className="w-5 h-5" />
-                <span className="text-sm font-medium">Posts</span>
-              </div>
             )}
 
             {session?.user?.role === "Admin" ? (
