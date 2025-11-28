@@ -1,7 +1,7 @@
-# Blog App - Development Prompts & Documentation
+# Prompt Sharing App - Development Prompts & Documentation
 
 ## Project Overview
-A Next.js 16 blog application with Google OAuth authentication and MongoDB integration.
+A Next.js 16 prompt-sharinglication with Google OAuth authentication and MongoDB integration.
 
 ## Tech Stack
 - **Framework**: Next.js 16.0.3 (App Router, Turbopack)
@@ -14,7 +14,7 @@ A Next.js 16 blog application with Google OAuth authentication and MongoDB integ
 
 ## Project Structure
 ```
-blog-app/
+prompt-sharing/
 ├── app/
 │   ├── api/
 │   │   └── auth/
@@ -53,7 +53,7 @@ GOOGLE_CLIENT_ID=your-google-client-id
 GOOGLE_CLIENT_SECRET=your-google-client-secret
 
 # MongoDB Connection
-MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/blog-app?retryWrites=true&w=majority&appName=Cluster0
+MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/prompt-sharing?retryWrites=true&w=majority&appName=Cluster0
 ```
 
 ## Setup Instructions
@@ -73,7 +73,7 @@ npm install
 1. Create free cluster at [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
 2. Create database user
 3. Get connection string
-4. Add to `.env.local` with database name: `/blog-app`
+4. Add to `.env.local` with database name: `/prompt-sharing`
 
 ### 4. Run Development Server
 ```bash
@@ -189,7 +189,7 @@ images: {
 
 ### User Not Saved to MongoDB
 - **Cause**: Missing database name in `MONGODB_URI`
-- **Fix**: Add `/blog-app` (or your DB name) before query parameters
+- **Fix**: Add `/prompt-sharing` (or your DB name) before query parameters
 
 ### ERR_CONNECTION_REFUSED
 - **Cause**: Dev server not running or wrong port
@@ -245,7 +245,7 @@ npm uninstall <package>  # Remove dependency
 
 # MongoDB
 # Connect via Compass: Use MONGODB_URI from .env.local
-# View users: Database "blog-app" → Collection "users"
+# View users: Database "prompt-sharing" → Collection "users"
 
 # Generate Secret Key
 openssl rand -base64 32  # For NEXTAUTH_SECRET

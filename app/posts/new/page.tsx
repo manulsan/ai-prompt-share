@@ -2,10 +2,11 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
-import { Check, X, Eye, Edit3 } from "lucide-react";
+import { Check, X, Eye, Edit3, Sparkles } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { useResponsiveContainer } from "@/app/hooks/useResponsiveContainer";
+import PromptBuilder from "@/app/components/PromptBuilder";
 
 // localhost:3000/posts/new
 export default function NewPostPage() {
@@ -14,6 +15,7 @@ export default function NewPostPage() {
   const { getContainerClass } = useResponsiveContainer();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
+  const [showBuilder, setShowBuilder] = useState(true);
   const [contentType, setContentType] = useState<"markdown" | "json">(
     "markdown"
   );
@@ -114,6 +116,23 @@ export default function NewPostPage() {
     return currentTags.includes(tag);
   };
 
+  const handleApplyFromBuilder = (
+    prompt: string,
+    title: string,
+    tags: string[]
+  ) => {
+    setFormData((prev) => ({
+      ...prev,
+      title: title || prev.title,
+      content: prompt,
+      tags: tags.join(", "),
+      slug: title && !isSlugManuallyEdited ? generateSlug(title) : prev.slug,
+    }));
+    setShowBuilder(false);
+    // Scroll to form
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -149,6 +168,27 @@ export default function NewPostPage() {
   return (
     <div className={getContainerClass()}>
       <h1 className="post_title">Create New Post</h1>
+
+      {/* Prompt Builder Toggle */}
+      <div className="mb-6">
+        <button
+          type="button"
+          onClick={() => setShowBuilder(!showBuilder)}
+          className="flex items-center gap-2 px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition"
+        >
+          <Sparkles className="w-4 h-4" />
+          {showBuilder ? "Hide Prompt Builder" : "Show Prompt Builder"}
+        </button>
+      </div>
+
+      {/* Prompt Builder */}
+      {showBuilder && (
+        <PromptBuilder
+          onApply={handleApplyFromBuilder}
+          initialPrompt={formData.content}
+        />
+      )}
+
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Title */}
         <div>

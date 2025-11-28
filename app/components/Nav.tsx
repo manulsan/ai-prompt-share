@@ -12,6 +12,7 @@ import {
   FileText,
   LayoutDashboard,
   LogOut,
+  BookOpen,
 } from "lucide-react";
 import NotificationBell from "./NotificationBell";
 
@@ -77,6 +78,12 @@ const Nav = () => {
             className="text-sm font-semibold text-white hover:text-white/80 transition px-2"
           >
             @Youtube
+          </Link>
+          <Link
+            href="/guides/agents-vs-prompts"
+            className="text-sm font-semibold text-white hover:text-white/80 transition px-2"
+          >
+            Guides
           </Link>
 
           {session?.user?.role === "Admin" ? (
@@ -265,6 +272,15 @@ const Nav = () => {
             >
               <Youtube className="w-5 h-5" />
               <span className="text-sm font-medium">YouTube Search</span>
+            </Link>
+
+            <Link
+              href="/guides/agents-vs-prompts"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="flex items-center gap-3 px-3 py-2.5 text-white hover:bg-white/10 rounded-md transition mb-1"
+            >
+              <BookOpen className="w-5 h-5" />
+              <span className="text-sm font-medium">Guides</span>
             </Link>
 
             {session && (
