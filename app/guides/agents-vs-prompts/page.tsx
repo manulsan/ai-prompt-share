@@ -216,6 +216,98 @@ export default function AgentsVsPromptsGuidePage() {
         en: "Get Started Now",
       },
     },
+    aiTools: {
+      title: {
+        ko: "AI 도구별 사용 가이드",
+        en: "AI Tool-Specific Usage Guides",
+      },
+      subtitle: {
+        ko: "각 AI 도구에서 AGENTS.md와 PROMPTS.md를 효과적으로 사용하는 방법을 배워보세요",
+        en: "Learn how to effectively use AGENTS.md and PROMPTS.md with each AI tool",
+      },
+      tools: [
+        {
+          name: "GitHub Copilot",
+          icon: "💻",
+          agentsLink: {
+            ko: "https://docs.github.com/en/copilot/using-github-copilot/prompt-engineering-for-github-copilot",
+            en: "https://docs.github.com/en/copilot/using-github-copilot/prompt-engineering-for-github-copilot",
+          },
+          promptsLink: {
+            ko: "https://github.blog/developer-skills/github/how-to-write-better-prompts-for-github-copilot/",
+            en: "https://github.blog/developer-skills/github/how-to-write-better-prompts-for-github-copilot/",
+          },
+          agentsTitle: {
+            ko: "Copilot에 프로젝트 규칙 알려주기",
+            en: "Teaching Project Rules to Copilot",
+          },
+          promptsTitle: {
+            ko: "프로젝트 설정 문서화",
+            en: "Documenting Project Setup",
+          },
+        },
+        {
+          name: "Cursor AI",
+          icon: "🎯",
+          agentsLink: {
+            ko: "https://docs.cursor.com/context/rules-for-ai",
+            en: "https://docs.cursor.com/context/rules-for-ai",
+          },
+          promptsLink: {
+            ko: "https://docs.cursor.com/get-started/migrate-from-vscode",
+            en: "https://docs.cursor.com/get-started/migrate-from-vscode",
+          },
+          agentsTitle: {
+            ko: "Cursor에서 AI 규칙 설정",
+            en: "Setting AI Rules in Cursor",
+          },
+          promptsTitle: {
+            ko: "프로젝트 마이그레이션 가이드",
+            en: "Project Migration Guide",
+          },
+        },
+        {
+          name: "Claude (Anthropic)",
+          icon: "🤖",
+          agentsLink: {
+            ko: "https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview",
+            en: "https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview",
+          },
+          promptsLink: {
+            ko: "https://docs.anthropic.com/en/docs/about-claude/use-case-guides",
+            en: "https://docs.anthropic.com/en/docs/about-claude/use-case-guides",
+          },
+          agentsTitle: {
+            ko: "Claude 프롬프트 엔지니어링",
+            en: "Claude Prompt Engineering",
+          },
+          promptsTitle: {
+            ko: "사용 사례 가이드",
+            en: "Use Case Guides",
+          },
+        },
+        {
+          name: "ChatGPT (OpenAI)",
+          icon: "🧠",
+          agentsLink: {
+            ko: "https://platform.openai.com/docs/guides/prompt-engineering",
+            en: "https://platform.openai.com/docs/guides/prompt-engineering",
+          },
+          promptsLink: {
+            ko: "https://help.openai.com/en/articles/6654000-best-practices-for-prompt-engineering-with-openai-api",
+            en: "https://help.openai.com/en/articles/6654000-best-practices-for-prompt-engineering-with-openai-api",
+          },
+          agentsTitle: {
+            ko: "GPT 프롬프트 엔지니어링 가이드",
+            en: "GPT Prompt Engineering Guide",
+          },
+          promptsTitle: {
+            ko: "API 사용 모범 사례",
+            en: "API Best Practices",
+          },
+        },
+      ],
+    },
     viewFullDoc: {
       ko: "전체 문서 보기",
       en: "View Full Document",
@@ -507,6 +599,74 @@ export default function AgentsVsPromptsGuidePage() {
               />
             </div>
           )}
+        </div>
+
+        {/* AI Tools Usage Guide Section */}
+        <div className="mt-16 mb-12">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl font-bold mb-4">
+              {t.aiTools.title[language]}
+            </h2>
+            <p className="text-gray-300 text-lg max-w-3xl mx-auto">
+              {t.aiTools.subtitle[language]}
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {t.aiTools.tools.map((tool, index) => (
+              <div
+                key={index}
+                className="bg-[#161b22] border border-[#30363d] rounded-xl p-6 hover:border-purple-500 transition"
+              >
+                <div className="text-center mb-4">
+                  <div className="text-5xl mb-3">{tool.icon}</div>
+                  <h3 className="text-xl font-bold">{tool.name}</h3>
+                </div>
+
+                <div className="space-y-3">
+                  {/* AGENTS.md Link */}
+                  <a
+                    href={tool.agentsLink[language]}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block bg-blue-600/10 hover:bg-blue-600/20 border border-blue-600/30 hover:border-blue-600/50 rounded-lg p-3 transition group"
+                  >
+                    <div className="flex items-start gap-2">
+                      <FileCode className="w-5 h-5 text-blue-400 shrink-0 mt-0.5" />
+                      <div>
+                        <div className="font-semibold text-blue-400 text-sm mb-1">
+                          AGENTS.md
+                        </div>
+                        <div className="text-xs text-gray-300 group-hover:text-white transition">
+                          {tool.agentsTitle[language]}
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+
+                  {/* PROMPTS.md Link */}
+                  <a
+                    href={tool.promptsLink[language]}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block bg-purple-600/10 hover:bg-purple-600/20 border border-purple-600/30 hover:border-purple-600/50 rounded-lg p-3 transition group"
+                  >
+                    <div className="flex items-start gap-2">
+                      <FileText className="w-5 h-5 text-purple-400 shrink-0 mt-0.5" />
+                      <div>
+                        <div className="font-semibold text-purple-400 text-sm mb-1">
+                          PROMPTS.md
+                        </div>
+                        <div className="text-xs text-gray-300 group-hover:text-white transition">
+                          {tool.promptsTitle[language]}
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* Call to Action */}
