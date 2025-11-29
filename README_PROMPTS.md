@@ -1,223 +1,246 @@
-# PROMPTS.md - 프로젝트 문서화 및 개발 가이드
+# PROMPTS.md - AI 에이전트 성격 및 행동 규칙 매뉴얼
 
 ## 📋 목적
 
-**PROMPTS.md는 개발자(사람)를 위한 프로젝트 전체 문서입니다.**
+**PROMPTS.md는 전체 시스템의 기반 규칙(공통 매뉴얼)입니다.**
 
-이 파일은 새로운 개발자가 프로젝트를 빠르게 이해하고, 설정하고, 개발할 수 있도록 돕습니다.
+AI 모델에게 적용될 행동 규칙, 응답 형식, 개발 가이드라인, 금지 요소들을 정의합니다.
+AI가 어떻게 사고하고 어떻게 행동해야 하는지 규정한 AI 매뉴얼입니다.
 
 ## 🎯 누구를 위한 파일인가?
 
-- **독자**: 개발자 (당신, 팀원, 미래의 당신)
-- **목적**: 프로젝트 설정, 실행, 문제 해결 가이드
-- **사용 시점**: 프로젝트 시작, 설정, 배포, 문제 해결 시
+- **독자**: AI 에이전트 (시스템이 읽음)
+- **목적**: AI의 성격, 말투, 규칙, 금지어, 포맷 정의
+- **사용 시점**: AI가 모든 응답을 생성할 때 자동으로 참조
 
 ## 📝 무엇을 담는가?
 
-### 1. **프로젝트 개요**
+### 1. **AI 성격 정의**
 ```markdown
-## Project Overview
-Next.js 블로그 앱 with Google OAuth와 MongoDB
+## AI Personality
+- 말투: 친절하고 간결하게 (친절·간결·기술적·공식적 등)
+- 성격: 전문적이면서도 이해하기 쉽게
+- 태도: 불확실할 땐 솔직하게 "모른다"고 표현
 ```
-→ "이 프로젝트가 뭐하는 건지" 한눈에 파악
+→ AI가 어떤 톤으로 사용자와 소통할지 결정
 
-### 2. **기술 스택 (상세 버전 포함)**
+### 2. **금지어 및 제약 규칙**
 ```markdown
-## Tech Stack
-- Framework: Next.js 15.1.6 (App Router)
-- React: 19.2.0
-- Database: MongoDB with Mongoose
-- Auth: NextAuth.js 4.24.13
+## Forbidden Words & Rules
+❌ 사용 금지:
+- "probably" (아마도)
+- "maybe" (어쩌면)
+- "I think" (내 생각엔)
+
+✅ 대신 사용:
+- "확인이 필요합니다"
+- "문서에 따르면"
+- "테스트 결과는"
 ```
-→ 정확한 버전으로 호환성 문제 방지
+→ Hallucination 방지 및 정확성 보장
 
-### 3. **환경 변수 설정**
-```env
-NEXTAUTH_URL=http://localhost:3000
-NEXTAUTH_SECRET=your-secret-here
-GOOGLE_CLIENT_ID=your-client-id
-MONGODB_URI=mongodb+srv://...
-```
-→ 복사-붙여넣기로 바로 설정 가능
-
-### 4. **설치 및 실행 방법**
-```bash
-# 1. 의존성 설치
-npm install
-
-# 2. 환경 변수 설정
-cp .env.example .env.local
-
-# 3. 개발 서버 실행
-npm run dev
-```
-→ 단계별로 따라하면 프로젝트 실행
-
-### 5. **주요 기능 설명**
-- 사용자 인증 흐름
-- 데이터베이스 스키마
-- API 엔드포인트
-- 주요 컴포넌트 설명
-
-→ 프로젝트 구조와 작동 방식 이해
-
-### 6. **문제 해결 가이드**
+### 3. **응답 포맷 규칙**
 ```markdown
-### "redirect_uri_mismatch" 에러
-- 원인: Google OAuth 설정 불일치
-- 해결: http://localhost:3000/api/auth/callback/google 추가
+## Response Format
+모든 응답은 다음 형식을 따름:
+1. 간단한 요약 (1-2문장)
+2. 상세 설명 (필요시)
+3. 코드 예시 (있다면 마크다운 코드블럭)
+4. 다음 단계 제안 (optional)
 ```
-→ 자주 발생하는 에러의 해결책
+→ 일관된 응답 구조 유지
 
-### 7. **개발 워크플로우**
+### 4. **코드 작성 규칙**
 ```markdown
-## Development Workflow
-1. 파일 수정
-2. 자동 새로고침 확인
-3. 브라우저 콘솔 체크
-4. 터미널 에러 확인
+## Code Generation Rules
+- 언어: TypeScript 필수
+- 스타일: PascalCase (컴포넌트), camelCase (함수)
+- 비동기: async/await 사용 (then/catch 금지)
+- 에러 처리: try/catch 필수
+- 주석: 복잡한 로직에만 최소한으로
 ```
-→ 일상적인 개발 과정 가이드
+→ 생성되는 모든 코드의 일관성
 
-### 8. **배포 가이드**
+### 5. **체크리스트 및 검증 규칙**
 ```markdown
-## Deploying to Production
-1. NEXTAUTH_SECRET 생성
-2. NEXTAUTH_URL을 프로덕션 도메인으로
-3. Google OAuth에 프로덕션 URI 추가
+## Validation Checklist
+코드 생성 전 확인:
+- [ ] TypeScript 타입 정의됨
+- [ ] 에러 핸들링 포함
+- [ ] 보안 취약점 없음
+- [ ] 성능 고려됨
 ```
-→ 실제 서비스 배포 방법
+→ AI가 스스로 품질 검증
+
+### 6. **문제 해결 접근법**
+```markdown
+## Problem Solving Approach
+1. 에러 메시지 정확히 분석
+2. 공식 문서 우선 참조
+3. 단계별 디버깅 제안
+4. 여러 해결책 제시 (장단점 포함)
+```
+→ 일관된 문제 해결 패턴
+
+### 7. **버전 관리 규칙**
+```markdown
+## PROMPTS.md Versioning
+- v1.0: 초기 규칙 (2025-01-15)
+- v1.1: 금지어 추가 (2025-02-10)
+- v2.0: 응답 포맷 변경 (2025-03-01)
+```
+→ 프롬프트도 코드처럼 버전 관리
+
+### 8. **팀 공유 프롬프트 템플릿**
+```markdown
+## Shared Prompt Templates
+### API 개발 프롬프트
+"RESTful API를 만들어줘. POST /api/users 엔드포인트.
+입력 검증, 에러 핸들링, TypeScript 사용"
+
+### 컴포넌트 생성 프롬프트
+"React 컴포넌트 만들어줘. 
+Server Component 기본, Client는 hooks 사용 시만"
+```
+→ 팀 전체가 동일한 품질의 AI 결과물 확보
 
 ## 🔄 현재 프로젝트의 PROMPTS.md
 
 **위치**: `c:\02.Tutorials\ai-prompt-share\PROMPTS.md`
 
 **내용**:
-- 블로그 앱 프로젝트 개요
-- 전체 프로젝트 구조 트리
-- 환경 변수 전체 목록
-- Google OAuth 설정 방법
-- MongoDB 설정 방법
-- 인증 흐름 상세 설명
-- 데이터베이스 스키마
-- 일반적인 에러와 해결책
-- 개발 워크플로우
-- 배포 체크리스트
-- 유용한 명령어 모음
+- AI 에이전트 성격 정의 (친절, 간결, 기술적)
+- 응답 형식 규칙 (마크다운, 코드블럭)
+- 코드 생성 규칙 (TypeScript, async/await)
+- 금지어 목록 ("probably", "maybe" 등)
+- 체크리스트 (타입 정의, 에러 핸들링)
+- 문제 해결 접근법
+- 팀 공유 프롬프트 템플릿
+- 버전 히스토리 (v1.0 → v2.0)
 
 ## 💡 예시 시나리오
 
-### 시나리오 1: 새 팀원이 프로젝트 시작
+### 시나리오 1: AI 성격 통일
 ```
-새 개발자: "이 프로젝트 어떻게 시작하지?"
+팀장: "AI가 때로는 너무 길게 답하고, 때로는 전문용어 투성이네?"
 
-PROMPTS.md를 읽고:
-1. npm install 실행 (설치 가이드)
-2. .env.local 파일 생성 (환경 변수)
-3. Google OAuth 설정 (설정 가이드)
-4. MongoDB 연결 (데이터베이스 설정)
-5. npm run dev 실행 (실행 방법)
-→ 10분 안에 프로젝트 실행 성공!
+해결: PROMPTS.md에 다음 규칙 추가
+- 말투: "간결하게, 3문장 이내"
+- 금지: "전문 용어는 설명과 함께"
+→ 모든 개발자가 일관된 AI 응답 받음!
 ```
 
-### 시나리오 2: 에러 발생
+### 시나리오 2: Hallucination 방지
 ```
-개발자: "redirect_uri_mismatch 에러가 나요"
+PM: "AI가 헛소리(hallucination)를 너무 많이 하네요"
 
-PROMPTS.md의 문제 해결 섹션:
-- 원인 확인
-- 해결 방법 확인
-- Google Console에서 수정
-→ 5분 안에 문제 해결!
+해결: PROMPTS.md v2.0 업데이트
+- 금지어 추가: "probably", "maybe", "I think"
+- 규칙 추가: "불확실하면 '확인이 필요합니다'라고 답하기"
+→ AI가 더 정확하게 답변!
 ```
 
-### 시나리오 3: 3개월 후 다시 보는 프로젝트
+### 시나리오 3: 코드 품질 향상
 ```
-개발자: "어떻게 실행하는 거였더라?"
+개발자: "AI가 만든 코드에 에러 처리가 없어요"
 
-PROMPTS.md 확인:
-- 환경 변수 어디 있는지
-- 어떤 명령어로 실행하는지
-- 주요 기능이 뭐였는지
-→ 빠르게 기억 되살림!
+해결: PROMPTS.md에 체크리스트 추가
+- [ ] try/catch 포함됨
+- [ ] TypeScript 타입 정의됨
+- [ ] 에러 메시지 명확함
+→ AI가 스스로 품질 검증 후 코드 생성!
 ```
 
 ## 🆚 AGENTS.md와의 차이
 
 | 항목 | PROMPTS.md | AGENTS.md |
 |------|------------|-----------|
-| **독자** | 개발자 (사람) | AI 코딩 어시스턴트 |
-| **목적** | 프로젝트 이해 및 설정 | AI가 코드 생성하도록 가이드 |
-| **언어** | 친절한 설명, 단계별 가이드 | 간결한 규칙, 패턴 |
-| **내용** | 설정 방법, 문제 해결, 배포 | 코딩 스타일, 아키텍처 패턴 |
-| **구조** | README 스타일 (긴 설명) | 치트시트 스타일 (짧고 명확) |
-| **예시** | "Google OAuth 설정 3단계" | "인증 체크: getServerSession 사용" |
+| **독자** | AI 에이전트 (시스템) | AI 코딩 어시스턴트 |
+| **목적** | AI 성격 및 행동 규칙 | 코드 생성 가이드 |
+| **언어** | 규칙과 제약 | 패턴과 예시 |
+| **내용** | 말투, 금지어, 포맷, 체크리스트 | 코딩 스타일, 아키텍처 패턴 |
+| **구조** | 매뉴얼 스타일 (규칙 나열) | 치트시트 스타일 (코드 예시) |
+| **예시** | "친절하게 말해", "'probably' 금지" | "컴포넌트는 PascalCase로" |
+| **버전 관리** | v1 → v2 (규칙 변경 시) | 프로젝트 진행에 따라 업데이트 |
 
 ## 📊 비교표: 같은 내용, 다른 표현
 
-### 예시: 환경 변수
+### 예시: AI 응답 규칙
 
-**PROMPTS.md (개발자용)**
+**PROMPTS.md (AI 행동 규칙)**
 ```markdown
-## 환경 변수 설정하기
+## AI Response Rules
 
-프로젝트를 실행하기 위해 몇 가지 환경 변수를 설정해야 합니다.
+### Tone & Personality
+- 말투: 친절하고 전문적
+- 문장: 3문장 이내로 간결하게
+- 불확실성: "확인이 필요합니다"로 표현
 
-### 1단계: .env.local 파일 만들기
-프로젝트 루트에 `.env.local` 파일을 만드세요.
+### Forbidden Words
+❌ 절대 사용 금지:
+- "probably" (아마도)
+- "maybe" (어쩌면)  
+- "I think" (내 생각엔)
 
-### 2단계: 필요한 변수 추가
-다음 변수들을 복사해서 붙여넣으세요:
-
-```env
-NEXTAUTH_SECRET=your-secret-here
-GOOGLE_CLIENT_ID=your-client-id
+### Code Format
+모든 코드는:
+1. TypeScript 사용
+2. 마크다운 코드블럭으로 감싸기
+3. try/catch 에러 핸들링 포함
+4. 타입 정의 필수
 ```
 
-### 3단계: 실제 값으로 교체
-- `your-secret-here`: 이 명령어로 생성하세요 → `openssl rand -base64 32`
-- `your-client-id`: Google Cloud Console에서 복사하세요
-
-### 주의사항
-⚠️ .env.local 파일은 절대 Git에 커밋하지 마세요!
-```
-
-**AGENTS.md (AI용)**
+**AGENTS.md (AI 코드 생성 가이드)**
 ```markdown
-## Environment Variables
+## Coding Standards
 
-Required:
-- `NEXTAUTH_SECRET` - 32+ char random string
-- `GOOGLE_CLIENT_ID` - From Google Console
-- `MONGODB_URI` - MongoDB connection string with DB name
+### TypeScript
+- Always use TypeScript for all files
+- Define interfaces for props
+- Use `type` for unions, `interface` for objects
 
-Pattern:
+### React Components
 ```typescript
-// Access env vars (server-side only)
-process.env.NEXTAUTH_SECRET
-process.env.GOOGLE_CLIENT_ID
+// Server Component (default)
+export default async function Page() {
+  const data = await fetchData();
+  return <div>{data}</div>;
+}
+
+// Client Component (when needed)
+'use client';
+import { useState } from 'react';
+export default function Button() {
+  const [count, setCount] = useState(0);
+  return <button onClick={() => setCount(count + 1)}>{count}</button>;
+}
 ```
 
 Rules:
-- Never commit .env.local to Git
-- Validate required vars on startup
-- Use different values for dev/production
+- Server Components by default
+- Use 'use client' only when interactive
 ```
 
 **차이점**:
-- PROMPTS.md: 단계별, 친절한 설명, 주의사항 포함
-- AGENTS.md: 간결한 리스트, 코드 패턴, 규칙만
+- PROMPTS.md: AI의 "성격과 행동 방식" 규정 (어떻게 말하고, 뭘 금지하고)
+- AGENTS.md: AI의 "코드 작성 방법" 가이드 (어떤 패턴으로 코드 만들지)
 
 ## 📚 요약
 
-**PROMPTS.md = 개발자를 위한 프로젝트 설명서**
+**PROMPTS.md = AI 에이전트의 성격 및 행동 규칙 매뉴얼**
 
-- 프로젝트 빠르게 시작하기
-- 설정 방법 자세히 설명
-- 문제 발생 시 해결 가이드
-- 배포 및 운영 가이드
+1. **AI가 어떻게 사고하고 행동할지 정의**
+   - 어떤 문제를 해결하는 AI인가?
+   - 말투는? (친절·간결·기술적·공식적 등)
+   - 사용하면 안 되는 단어는?
+   - 코드를 만들 때 지켜야 할 포맷은?
 
-**핵심**: "개발자야, 이 프로젝트는 이렇게 돌아가"
+2. **팀/시스템 내부에서 공유되는 "AI 사용 가이드라인"**
+   - 개발자가 바뀌어도 일관된 AI 행동 유지
+   - "우리 시스템에서는 AI에게 이렇게 물어봐야 한다"
+   - API 프롬프트 템플릿, 코딩 스타일 프롬프트, 분석 프롬프트 등
+
+**핵심**: "AI야, 이렇게 생각하고 이렇게 행동해"
 
 ---
 
@@ -225,11 +248,13 @@ Rules:
 
 ### 초보자를 위한 비유
 
-**PROMPTS.md**: 가전제품 "사용 설명서"
-- "전원 버튼 여기 있어요"
-- "이렇게 설정하세요"
-- "문제 생기면 이렇게 하세요"
-- "처음 사용하는 분들을 위한 가이드"
+**PROMPTS.md**: AI의 "성격 및 행동 지침서"
+- "친절하게 말해"
+- "전문용어 쓰지 마"
+- "불확실하면 '모른다'고 해"
+- "코드는 TypeScript로 작성해"
+- AI 에이전트가 자동으로 읽고 따름
+- 프롬프트도 코드처럼 버전 관리 (v1 → v2 → v3)
 
 **AGENTS.md**: 가전제품 "제조 매뉴얼"
 - "이 부품은 이렇게 만들어야 함"
@@ -237,34 +262,50 @@ Rules:
 - "조립 순서는 반드시 이거"
 - "제조사 엔지니어를 위한 기술 문서"
 
+**README.md**: 가전제품 "사용 설명서"
+- "전원 버튼 여기 있어요"
+- "이렇게 설정하세요"
+- "문제 생기면 이렇게 하세요"
+- "처음 사용하는 분들을 위한 가이드"
+
 ---
 
 ## 🔍 실제 사용 예시
 
-### 프로젝트 시작 시
+### AI에게 일관된 성격 부여
 ```bash
-# 1. PROMPTS.md 열기
-# 2. "Setup Instructions" 섹션 찾기
-# 3. 단계별로 따라하기
+# PROMPTS.md 작성 후
+# 모든 개발자가 동일한 품질의 AI 응답 받음
 
-npm install  # ✅ 완료
-.env.local 생성  # ✅ 완료
-Google OAuth 설정  # ✅ 완료
-npm run dev  # ✅ 프로젝트 실행!
+개발자 A: "컴포넌트 만들어줘"
+AI: [PROMPTS.md 읽음] → TypeScript + Server Component 생성
+
+개발자 B: "API 만들어줘"  
+AI: [PROMPTS.md 읽음] → try/catch + 타입 정의 포함
+
+개발자 C: "이거 어떻게 해?"
+AI: [PROMPTS.md 읽음] → 간결하게 3문장으로 답변
 ```
 
-### 에러 발생 시
+### 프롬프트 버전 업그레이드
 ```bash
-# 에러 메시지 복사
-# PROMPTS.md의 "Troubleshooting" 섹션 검색
-# 해결 방법 찾아서 적용
+# v1.0: 초기 규칙
+"친절하게 답해"
+
+# v1.1: 금지어 추가
+"친절하게 답해, 'probably' 쓰지 마"
+
+# v2.0: 응답 포맷 변경
+"친절하게 답해, 'probably' 쓰지 마, 코드는 마크다운으로 감싸"
 ```
 
-### 새 기능 추가 시
+### 팀 공유 프롬프트 활용
 ```bash
-# PROMPTS.md에서 프로젝트 구조 확인
-# 비슷한 기능 예시 찾기
-# AGENTS.md는 AI가 참고 (자동)
+# PROMPTS.md에 템플릿 저장
+"API 만들어줘: POST /api/users, 입력 검증, 에러 핸들링, TypeScript"
+
+# 모든 팀원이 동일한 프롬프트 사용
+→ 일관된 코드 품질 유지
 ```
 
 ---
@@ -272,19 +313,20 @@ npm run dev  # ✅ 프로젝트 실행!
 ## 📝 작성 팁
 
 ### 좋은 PROMPTS.md 특징
-✅ 단계별로 명확한 설명
-✅ 스크린샷이나 코드 예시 풍부
-✅ 자주 발생하는 문제와 해결책
-✅ 실제 명령어와 값 예시
-✅ 초보자도 이해할 수 있는 언어
-✅ 목차로 빠른 탐색 가능
+✅ AI 성격 명확히 정의 (친절, 간결, 기술적 등)
+✅ 금지어 목록 명확 ("probably", "maybe" 등)
+✅ 응답 포맷 규칙 구체적
+✅ 코드 생성 규칙 상세
+✅ 체크리스트로 품질 검증
+✅ 버전 관리 (v1.0, v1.1, v2.0)
+✅ 팀 공유 프롬프트 템플릿 포함
 
 ### 나쁜 PROMPTS.md 예시
-❌ "설정하세요" (어떻게?)
-❌ 너무 짧고 불친절
-❌ 전문 용어만 나열
-❌ 예시 코드 없음
-❌ 에러 해결 방법 없음
+❌ "좋은 코드 만들어줘" (어떻게?)
+❌ 규칙이 너무 모호함
+❌ 금지어 없음 (hallucination 발생)
+❌ 응답 형식 불명확
+❌ 버전 관리 안 함
 
 ---
 

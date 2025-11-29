@@ -56,20 +56,20 @@ export default function AgentsVsPromptsGuidePage() {
     },
     prompts: {
       subtitle: {
-        ko: "개발자를 위한 프로젝트 전체 문서",
-        en: "Complete project documentation for developers",
+        ko: "AI가 코드, 페이지, API, 테스트를 생성하는 방법을 정의",
+        en: "Defines how AI should generate code, pages, APIs, tests, and documentation",
       },
       audience: {
-        ko: "독자: 개발자 (사람)",
-        en: "Audience: Developers (Humans)",
+        ko: "독자: AI 코딩 어시스턴트 (구현 지시)",
+        en: "Audience: AI Coding Assistants (Implementation Instructions)",
       },
       purpose: {
-        ko: "목적: 프로젝트 설정 및 실행 가이드",
-        en: "Purpose: Project setup and execution guide",
+        ko: "목적: AI 코드 생성 지시 및 가이드",
+        en: "Purpose: AI code generation instructions and guides",
       },
       content: {
-        ko: "내용: 설치, 설정, 문제 해결",
-        en: "Content: Installation, configuration, troubleshooting",
+        ko: "내용: General/Feature-Specific Prompts, Style/Formatting, Testing",
+        en: "Content: General/Feature-Specific Prompts, Style/Formatting, Testing",
       },
       detailButton: {
         ko: "자세히 보기",
@@ -87,6 +87,10 @@ export default function AgentsVsPromptsGuidePage() {
         ko: "왜 두 가지 문서가 필요할까요?",
         en: "Why do we need two types of documentation?",
       },
+      subtitle: {
+        ko: "README.md는 어디에? 각 파일의 역할을 명확히 구분해보세요",
+        en: "Where's README.md? Let's clearly distinguish each file's role",
+      },
       forAI: {
         title: {
           ko: "AI를 위한 문서",
@@ -101,104 +105,18 @@ export default function AgentsVsPromptsGuidePage() {
           en: '💡 Example: "Components are written in PascalCase, and Server Components are the default"',
         },
       },
-      forDevelopers: {
+      forAIBrain: {
         title: {
-          ko: "개발자를 위한 문서",
-          en: "Documentation for Developers",
+          ko: "AI의 두뇌 설정 매뉴얼",
+          en: "AI Brain Configuration Manual",
         },
         description: {
-          ko: '새로운 팀원이나 미래의 당신은 프로젝트 설정 방법을 모를 수 있습니다. PROMPTS.md는 "이렇게 설정하고 실행해"라고 알려주는 사용 설명서입니다.',
-          en: 'New team members or future you may not know how to set up the project. PROMPTS.md is a user manual that tells you "Set up and run it this way."',
+          ko: 'AI에게 "이렇게 생각하고, 이렇게 행동하고, 이런 톤으로 답해라"고 속삭이는 비밀 지도입니다. PROMPTS.md는 AI의 성격, 말투, 규칙, 금지어, 포맷을 정의해서 모든 개발자가 일관된 AI 행동을 끌어낼 수 있게 합니다.',
+          en: 'A secret map that whispers to AI "Think this way, act this way, respond in this tone." PROMPTS.md defines AI\'s personality, tone, rules, forbidden words, and format so all developers can get consistent AI behavior.',
         },
         example: {
-          ko: '💡 예: "Google OAuth 설정은 이 3단계를 따라하세요"',
-          en: '💡 Example: "Follow these 3 steps to set up Google OAuth"',
-        },
-      },
-      analogyTitle: {
-        ko: "비유로 이해하기",
-        en: "Understanding through Analogy",
-      },
-      agentsAnalogy: {
-        title: {
-          ko: "AGENTS.md = 공장 제조 매뉴얼",
-          en: "AGENTS.md = Factory Manufacturing Manual",
-        },
-        points: {
-          ko: [
-            "• 로봇(AI)이 제품(코드)을 만들 때 참조",
-            '• "나사는 3mm, 각도는 90도"',
-            "• 정확한 규격과 방법",
-          ],
-          en: [
-            "• Referenced when robots (AI) make products (code)",
-            '• "Screw is 3mm, angle is 90 degrees"',
-            "• Precise specifications and methods",
-          ],
-        },
-      },
-      promptsAnalogy: {
-        title: {
-          ko: "PROMPTS.md = 제품 사용 설명서",
-          en: "PROMPTS.md = Product User Manual",
-        },
-        points: {
-          ko: [
-            "• 사용자(개발자)가 제품(프로젝트)을 쓸 때 참조",
-            '• "전원 버튼 여기, 설정은 이렇게"',
-            "• 친절한 단계별 가이드",
-          ],
-          en: [
-            "• Referenced when users (developers) use the product (project)",
-            '• "Power button here, settings like this"',
-            "• Friendly step-by-step guide",
-          ],
-        },
-      },
-      scenariosTitle: {
-        ko: "실제 사용 시나리오",
-        en: "Real-world Usage Scenarios",
-      },
-      scenario1: {
-        title: {
-          ko: "시나리오 1: AI가 코드 생성",
-          en: "Scenario 1: AI Generates Code",
-        },
-        description: {
-          ko: '개발자: "새 페이지 만들어줘"',
-          en: 'Developer: "Create a new page"',
-        },
-        result: {
-          ko: "→ AI가 AGENTS.md를 읽고 프로젝트 패턴을 따라 코드 생성",
-          en: "→ AI reads AGENTS.md and generates code following project patterns",
-        },
-      },
-      scenario2: {
-        title: {
-          ko: "시나리오 2: 새 팀원 합류",
-          en: "Scenario 2: New Team Member Joins",
-        },
-        description: {
-          ko: '새 개발자: "프로젝트 어떻게 시작하지?"',
-          en: 'New developer: "How do I start the project?"',
-        },
-        result: {
-          ko: "→ PROMPTS.md를 보고 설정, 실행, 개발 방법 학습",
-          en: "→ Reads PROMPTS.md to learn setup, execution, and development methods",
-        },
-      },
-      scenario3: {
-        title: {
-          ko: "시나리오 3: 에러 발생",
-          en: "Scenario 3: Error Occurs",
-        },
-        description: {
-          ko: '개발자: "redirect_uri_mismatch 에러가 나요"',
-          en: 'Developer: "I\'m getting a redirect_uri_mismatch error"',
-        },
-        result: {
-          ko: "→ PROMPTS.md의 문제 해결 섹션에서 해결책 찾기",
-          en: "→ Find solution in PROMPTS.md troubleshooting section",
+          ko: "💡 예:\n\"성격: 친절하고 기술적\n규칙: 코드는 TypeScript로\n금지어: 'probably', 'maybe'\n포맷: 마크다운 + 코드블럭\"",
+          en: "💡 Example:\n\"Personality: Friendly & technical\nRule: Code in TypeScript\nForbidden: 'probably', 'maybe'\nFormat: Markdown + code blocks\"",
         },
       },
     },
@@ -477,9 +395,96 @@ export default function AgentsVsPromptsGuidePage() {
         <div className="bg-[#161b22] border border-[#30363d] rounded-xl p-8">
           {activeTab === "overview" && (
             <div className="prose prose-invert max-w-none">
-              <h2 className="text-3xl font-bold mb-6">
+              <h2 className="text-3xl font-bold mb-3">
                 {t.overview.title[language]}
               </h2>
+              <p className="text-gray-400 text-lg mb-8">
+                {t.overview.subtitle[language]}
+              </p>
+
+              {/* Three Files Comparison Table */}
+              <div className="bg-[#0d1117] border border-[#30363d] rounded-lg p-6 mb-8 overflow-x-auto">
+                <table className="w-full text-left">
+                  <thead>
+                    <tr className="border-b border-[#30363d]">
+                      <th className="pb-3 pr-4 text-gray-400 font-semibold">
+                        {language === "ko" ? "파일" : "File"}
+                      </th>
+                      <th className="pb-3 px-4 text-gray-400 font-semibold">
+                        {language === "ko" ? "독자" : "Audience"}
+                      </th>
+                      <th className="pb-3 px-4 text-gray-400 font-semibold">
+                        {language === "ko" ? "목적" : "Purpose"}
+                      </th>
+                      <th className="pb-3 pl-4 text-gray-400 font-semibold">
+                        {language === "ko" ? "내용" : "Content"}
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr className="border-b border-[#30363d]">
+                      <td className="py-3 pr-4">
+                        <span className="font-mono text-blue-400 font-semibold">
+                          AGENTS.md
+                        </span>
+                      </td>
+                      <td className="py-3 px-4 text-gray-300">
+                        {language === "ko" ? "AI 코딩 도구" : "AI Coding Tools"}
+                      </td>
+                      <td className="py-3 px-4 text-gray-300">
+                        {language === "ko"
+                          ? "코드 생성 규칙"
+                          : "Code Generation Rules"}
+                      </td>
+                      <td className="py-3 pl-4 text-gray-300">
+                        {language === "ko" ? "How (어떻게)" : "How"}
+                      </td>
+                    </tr>
+                    <tr className="border-b border-[#30363d]">
+                      <td className="py-3 pr-4">
+                        <span className="font-mono text-purple-400 font-semibold">
+                          PROMPTS.md
+                        </span>
+                      </td>
+                      <td className="py-3 px-4 text-gray-300">
+                        {language === "ko"
+                          ? "AI 코딩 어시스턴트"
+                          : "AI Coding Assistants"}
+                      </td>
+                      <td className="py-3 px-4 text-gray-300">
+                        {language === "ko"
+                          ? "AI 코드 생성 방법"
+                          : "How AI Generates Code"}
+                      </td>
+                      <td className="py-3 pl-4 text-gray-300">
+                        {language === "ko"
+                          ? "General Prompt, CRUD 기능, 스타일, 테스팅"
+                          : "General Prompt, CRUD Features, Style, Testing"}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="py-3 pr-4">
+                        <span className="font-mono text-green-400 font-semibold">
+                          README.md
+                        </span>
+                      </td>
+                      <td className="py-3 px-4 text-gray-300">
+                        {language === "ko"
+                          ? "개발자 (사람)"
+                          : "Developers (Human)"}
+                      </td>
+                      <td className="py-3 px-4 text-gray-300">
+                        {language === "ko" ? "설치 & 실행" : "Setup & Run"}
+                      </td>
+                      <td className="py-3 pl-4 text-gray-300">
+                        {language === "ko"
+                          ? "설치, 설정, 실행"
+                          : "Install, Config, Run"}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
 
               <div className="grid md:grid-cols-2 gap-6 mb-8">
                 <div className="bg-[#0d1117] border border-[#30363d] rounded-lg p-6">
@@ -498,83 +503,19 @@ export default function AgentsVsPromptsGuidePage() {
 
                 <div className="bg-[#0d1117] border border-[#30363d] rounded-lg p-6">
                   <h3 className="text-xl font-bold mb-3 text-purple-400">
-                    {t.overview.forDevelopers.title[language]}
+                    {t.overview.forAIBrain.title[language]}
                   </h3>
                   <p className="text-gray-300 mb-3">
-                    {t.overview.forDevelopers.description[language]}
+                    {t.overview.forAIBrain.description[language]}
                   </p>
                   <div className="bg-purple-600/10 border border-purple-600/30 rounded p-3">
-                    <p className="text-sm text-purple-300">
-                      {t.overview.forDevelopers.example[language]}
+                    <p
+                      className="text-sm text-purple-300"
+                      style={{ whiteSpace: "pre-line" }}
+                    >
+                      {t.overview.forAIBrain.example[language]}
                     </p>
                   </div>
-                </div>
-              </div>
-
-              <h3 className="text-2xl font-bold mb-4">
-                {t.overview.analogyTitle[language]}
-              </h3>
-              <div className="bg-[#0d1117] border border-[#30363d] rounded-lg p-6 mb-6">
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div>
-                    <h4 className="font-bold mb-2 text-blue-400">
-                      {t.overview.agentsAnalogy.title[language]}
-                    </h4>
-                    <ul className="space-y-2 text-gray-300">
-                      {t.overview.agentsAnalogy.points[language].map(
-                        (point, i) => (
-                          <li key={i}>{point}</li>
-                        )
-                      )}
-                    </ul>
-                  </div>
-                  <div>
-                    <h4 className="font-bold mb-2 text-purple-400">
-                      {t.overview.promptsAnalogy.title[language]}
-                    </h4>
-                    <ul className="space-y-2 text-gray-300">
-                      {t.overview.promptsAnalogy.points[language].map(
-                        (point, i) => (
-                          <li key={i}>{point}</li>
-                        )
-                      )}
-                    </ul>
-                  </div>
-                </div>
-              </div>
-
-              <h3 className="text-2xl font-bold mb-4">
-                {t.overview.scenariosTitle[language]}
-              </h3>
-              <div className="space-y-4">
-                <div className="bg-green-600/10 border border-green-600/30 rounded-lg p-4">
-                  <h4 className="font-bold mb-2 text-green-400">
-                    {t.overview.scenario1.title[language]}
-                  </h4>
-                  <p className="text-gray-300">
-                    {t.overview.scenario1.description[language]} <br />
-                    {t.overview.scenario1.result[language]}
-                  </p>
-                </div>
-
-                <div className="bg-green-600/10 border border-green-600/30 rounded-lg p-4">
-                  <h4 className="font-bold mb-2 text-green-400">
-                    {t.overview.scenario2.title[language]}
-                  </h4>
-                  <p className="text-gray-300">
-                    {t.overview.scenario2.description[language]} <br />
-                    {t.overview.scenario2.result[language]}
-                  </p>
-                </div>
-
-                <div className="bg-green-600/10 border border-green-600/30 rounded-lg p-4">
-                  <h4 className="font-bold mb-2 text-green-400">
-                    {t.overview.scenario3.title[language]}
-                  </h4>
-                  <p className="text-gray-300">
-                    {t.overview.scenario3.description[language]} <br />
-                    {t.overview.scenario3.result[language]}
-                  </p>
                 </div>
               </div>
             </div>

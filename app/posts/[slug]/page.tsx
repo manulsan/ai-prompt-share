@@ -222,7 +222,7 @@ export default function PostDetailPage() {
                 li: ({ node, ...props }) => <li className="mb-2" {...props} />,
                 blockquote: ({ node, ...props }) => (
                   <blockquote
-                    className="border-l-4 border-blue-500 pl-4 italic my-4 text-gray-700"
+                    className="border-l-4 border-blue-500 pl-4 italic my-4 text-gray-300"
                     {...props}
                   />
                 ),

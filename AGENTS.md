@@ -1,4 +1,26 @@
-# AI Prompt Share - Agent Instructions
+# AI Prompt Share - Agent Role Definitions
+
+> **Purpose**: This file defines "Who does what" - the roles and responsibilities of each AI agent in the project.
+> 
+> **Distinction**:
+> - **AGENTS.md** (this file): Defines agent roles, responsibilities, and task ownership
+> - **PROMPTS.md**: Contains specific implementation instructions ("what and how to implement")
+
+---
+
+## Agent Role Overview
+
+This project uses multiple specialized AI agents, each with distinct responsibilities:
+
+| Agent | Primary Role | Key Responsibilities |
+|-------|-------------|---------------------|
+| **Frontend Developer Agent** | UI/UX Implementation | NextJS pages/components, Tailwind styling, responsive design, dark theme |
+| **Backend Developer Agent** | API & Database | CRUD APIs, MongoDB/Mongoose, data validation, authentication |
+| **SEO Agent** | Search & Social Optimization | Meta tags, Open Graph, Twitter Cards, structured data (JSON-LD) |
+| **Testing Agent** | Quality Assurance | Unit tests, API testing, debugging, edge case validation |
+| **Documentation Agent** | Knowledge Management | Code documentation, API specs, user guides, examples |
+
+---
 
 ## Project Context
 This is an AI prompt sharing platform where users can discover, share, and learn effective prompting techniques. Built with Next.js 15, MongoDB, NextAuth, and Tailwind CSS.
@@ -16,6 +38,171 @@ This is an AI prompt sharing platform where users can discover, share, and learn
 - **Styling**: Tailwind CSS 4.1.17
 - **Language**: TypeScript 5
 - **Icons**: lucide-react
+
+---
+
+## 1. Frontend Developer Agent
+
+### Role & Responsibility
+- **Owner**: All user-facing UI components and pages
+- **Focus**: Visual design, user experience, interactivity, responsive layouts
+
+### Task Ownership
+- Creating NextJS pages (`app/[page-name]/page.tsx`)
+- Building React components (`app/components/*.tsx`)
+- Implementing client-side interactivity (hooks, state management)
+- Applying Tailwind CSS styling with dark theme
+- Ensuring responsive design (mobile, tablet, desktop)
+- Implementing forms with validation UI
+
+### Technical Specifications
+- **Framework**: Next.js 15.1.6 (App Router)
+- **React**: 19.2.0 with Server/Client Components
+- **Styling**: Tailwind CSS 4.1.17
+- **Icons**: lucide-react
+- **Naming**: PascalCase for components, camelCase for utilities
+
+### Example Tasks
+```
+✓ Create new post browsing page at /posts
+✓ Build PromptBuilder interactive component
+✓ Implement like button with optimistic UI
+✓ Design user profile sidebar
+✓ Add mobile navigation menu
+```
+
+---
+
+## 2. Backend Developer Agent
+
+### Role & Responsibility
+- **Owner**: API routes, database operations, business logic
+- **Focus**: Data integrity, authentication, CRUD operations, validation
+
+### Task Ownership
+- Creating API routes (`app/api/[resource]/route.ts`)
+- Defining Mongoose schemas (`models/*.ts`)
+- Implementing authentication with NextAuth
+- Writing database queries and mutations
+- Validating input data
+- Handling error responses
+
+### Technical Specifications
+- **Database**: MongoDB with Mongoose ODM
+- **Authentication**: NextAuth.js 4.24.13 (Google OAuth)
+- **Language**: TypeScript 5
+- **Validation**: Type checking with interfaces
+- **API Pattern**: RESTful with proper HTTP status codes
+
+### Example Tasks
+```
+✓ Create POST /api/posts endpoint for creating posts
+✓ Implement like/unlike functionality in PATCH /api/posts
+✓ Add user profile API at GET /api/users/[userId]
+✓ Set up MongoDB connection with retry logic
+✓ Create Post and User Mongoose models
+```
+
+---
+
+## 3. SEO Agent
+
+### Role & Responsibility
+- **Owner**: Search engine optimization, social media sharing, discoverability
+- **Focus**: Meta tags, Open Graph, structured data, SEO best practices
+
+### Task Ownership
+- Adding meta tags to all pages (title, description, keywords)
+- Implementing Open Graph tags for Facebook/LinkedIn sharing
+- Adding Twitter Card metadata
+- Creating JSON-LD structured data for blog posts
+- Ensuring dynamic metadata generation per page/post
+- Optimizing for search engine crawlers
+
+### Technical Specifications
+- **Framework**: Next.js Metadata API
+- **Standards**: Open Graph Protocol, Twitter Card Markup, Schema.org JSON-LD
+- **Focus Areas**: Title optimization, description quality, image tags, canonical URLs
+
+### Example Tasks
+```
+✓ Add SEO metadata to all guide pages
+✓ Implement Open Graph tags for post sharing
+✓ Create JSON-LD structured data for posts
+✓ Add Twitter Card support with images
+✓ Ensure dynamic meta generation for post detail pages
+```
+
+---
+
+## 4. Testing Agent
+
+### Role & Responsibility
+- **Owner**: Quality assurance, testing, debugging, edge case handling
+- **Focus**: Unit tests, integration tests, manual testing checklists, bug fixes
+
+### Task Ownership
+- Writing unit tests for components and utilities
+- Creating API endpoint tests
+- Defining manual testing checklists
+- Identifying edge cases and error scenarios
+- Debugging issues and providing solutions
+- Validating authentication flows
+
+### Technical Specifications
+- **Testing**: Manual testing, potential Jest/React Testing Library
+- **API Testing**: Postman/manual curl commands
+- **Focus Areas**: Authentication, CRUD operations, error states, edge cases
+
+### Example Tasks
+```
+✓ Test authentication flow (sign in/out)
+✓ Validate post creation with various inputs
+✓ Test edge cases (empty states, invalid IDs)
+✓ Check responsive design on mobile/tablet/desktop
+✓ Verify pagination and search functionality
+```
+
+### Testing Checklist (Manual)
+- [ ] Authentication flow (sign in/out)
+- [ ] Create, read, update, delete operations
+- [ ] Search and filter functionality
+- [ ] Pagination and navigation
+- [ ] Responsive design on mobile/tablet/desktop
+- [ ] Error states and edge cases
+
+---
+
+## 5. Documentation Agent
+
+### Role & Responsibility
+- **Owner**: Code documentation, API specs, user guides, educational content
+- **Focus**: Clear explanations, examples, onboarding materials, knowledge transfer
+
+### Task Ownership
+- Writing code comments for complex logic
+- Creating API documentation with examples
+- Building educational guide pages (`/guides/*`)
+- Documenting setup instructions (README)
+- Providing example inputs/outputs
+- Maintaining this AGENTS.md file
+
+### Technical Specifications
+- **Format**: Markdown for documentation
+- **Content Style**: Professional but approachable, educational tone
+- **Structure**: Hero → Why it matters → Sections → Examples → Practice → CTA
+- **Examples**: Color-coded (✅ good, ❌ bad, 💡 prompts)
+
+### Example Tasks
+```
+✓ Create /guides/agents-vs-prompts educational page
+✓ Write README with setup instructions
+✓ Document environment variables
+✓ Add code comments for complex functions
+✓ Create API documentation with request/response examples
+```
+
+---
 
 ## Architecture Guidelines
 

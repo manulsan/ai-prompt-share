@@ -47,11 +47,18 @@ export default function Home() {
       features: ["Productivity", "Research", "Coding", "Integration"],
     },
     {
-      name: "Perplexity",
-      description: "AI-powered search and research assistant",
-      url: "https://www.perplexity.ai",
-      icon: "🔍",
-      features: ["Research", "Citations", "Search", "Analysis"],
+      name: "antigravity",
+      description:
+        "Open-source AI search and knowledge engine. Fast, privacy-first, and extensible for developers.",
+      url: "https://antigravity.dev",
+      icon: "🪐",
+      features: [
+        "Open Source",
+        "Search",
+        "Knowledge Graph",
+        "Privacy",
+        "Developer Tools",
+      ],
     },
   ];
 
